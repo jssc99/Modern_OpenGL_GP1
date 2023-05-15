@@ -13,13 +13,22 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Source Files\Include">
+      <UniqueIdentifier>{294b76e3-b4e5-49a9-9068-3c73c441912d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Shaders">
+      <UniqueIdentifier>{3dae1e7a-4841-4ef4-b4d9-3389e3f2f86c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Src">
+      <UniqueIdentifier>{34b82462-8a97-47bf-9aaa-6571da0ffabd}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="main.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="external\src\glad.c">
       <Filter>Resource Files</Filter>
+    </ClCompile>
+    <ClCompile Include="main.cpp">
+      <Filter>Source Files\Src</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
