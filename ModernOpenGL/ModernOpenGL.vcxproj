@@ -108,6 +108,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -133,7 +134,27 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="external\src\glad.c" />
-    <ClCompile Include="main.cpp" />
+    <ClCompile Include="source\src\debug.cpp" />
+    <ClCompile Include="source\src\IResource.cpp" />
+    <ClCompile Include="source\src\main.cpp" />
+    <ClCompile Include="source\src\resourceManager.cpp" />
+    <ClCompile Include="source\src\shader.cpp" />
+    <ClCompile Include="source\src\texture.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="source\shaders\testShader.vert" />
+    <None Include="source\shaders\testShader.frag" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="source\include\debug.hpp" />
+    <ClInclude Include="source\include\IResource.hpp" />
+    <ClInclude Include="source\include\resourceManager.hpp" />
+    <ClInclude Include="source\include\shader.hpp" />
+    <ClInclude Include="source\include\texture.hpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="assets\textures\awesomeface.png" />
+    <Image Include="assets\textures\wall.jpg" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

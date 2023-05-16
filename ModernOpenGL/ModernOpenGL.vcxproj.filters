@@ -1,34 +1,109 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="Source Files">
+    <Filter Include="Core">
       <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
       <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
     </Filter>
-    <Filter Include="Header Files">
-      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
-      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
-    </Filter>
-    <Filter Include="Resource Files">
+    <Filter Include="Resources">
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
-    <Filter Include="Source Files\Include">
-      <UniqueIdentifier>{294b76e3-b4e5-49a9-9068-3c73c441912d}</UniqueIdentifier>
+    <Filter Include="Resources\RessourcesManager">
+      <UniqueIdentifier>{3faff4da-9b61-4112-99bc-ea42dbcb3181}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\Shaders">
+    <Filter Include="Physics">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="LowRenderer">
+      <UniqueIdentifier>{cdb17f97-48c6-49cd-91e3-b4c50114f5b7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resources\Model">
+      <UniqueIdentifier>{04c79b89-3d30-4cb3-b957-eb61892496dd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resources\Scene">
+      <UniqueIdentifier>{571abb3d-ea51-45ec-bf19-4e98e1072a21}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resources\Shader">
       <UniqueIdentifier>{3dae1e7a-4841-4ef4-b4d9-3389e3f2f86c}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\Src">
-      <UniqueIdentifier>{34b82462-8a97-47bf-9aaa-6571da0ffabd}</UniqueIdentifier>
+    <Filter Include="Resources\Texture">
+      <UniqueIdentifier>{4371c7cd-129d-4959-8cdf-5533f5bcc70d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="LowRenderer\Mesh">
+      <UniqueIdentifier>{de10158b-ec80-4ceb-90d3-b53e3c774ad2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="LowRenderer\Light">
+      <UniqueIdentifier>{d120355c-8189-4cbb-bd5e-c4c93cbf93d9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="LowRenderer\Camera">
+      <UniqueIdentifier>{ef71f989-3f93-49e0-8129-670b9873fd87}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core\Debug">
+      <UniqueIdentifier>{ddd6216f-8b00-4281-a2f6-e483310ec74a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core\Math">
+      <UniqueIdentifier>{07020625-8752-4e9b-8d8f-b7bb4078c6f2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core\DataStructure">
+      <UniqueIdentifier>{52fa849e-9e93-400b-94da-d164b0f19098}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="source\src\resourceManager.cpp">
+      <Filter>Resources\RessourcesManager</Filter>
+    </ClCompile>
+    <ClCompile Include="source\src\debug.cpp">
+      <Filter>Core\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="source\src\IResource.cpp">
+      <Filter>Resources\RessourcesManager</Filter>
+    </ClCompile>
+    <ClCompile Include="source\src\shader.cpp">
+      <Filter>Resources\Shader</Filter>
+    </ClCompile>
+    <ClCompile Include="source\src\texture.cpp">
+      <Filter>Resources\Texture</Filter>
+    </ClCompile>
     <ClCompile Include="external\src\glad.c">
-      <Filter>Resource Files</Filter>
+      <Filter>Core</Filter>
     </ClCompile>
-    <ClCompile Include="main.cpp">
-      <Filter>Source Files\Src</Filter>
+    <ClCompile Include="source\src\main.cpp">
+      <Filter>Core</Filter>
     </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="source\shaders\testShader.frag">
+      <Filter>Resources\Shader</Filter>
+    </None>
+    <None Include="source\shaders\testShader.vert">
+      <Filter>Resources\Shader</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="source\include\resourceManager.hpp">
+      <Filter>Resources\RessourcesManager</Filter>
+    </ClInclude>
+    <ClInclude Include="source\include\debug.hpp">
+      <Filter>Core\Debug</Filter>
+    </ClInclude>
+    <ClInclude Include="source\include\IResource.hpp">
+      <Filter>Resources\RessourcesManager</Filter>
+    </ClInclude>
+    <ClInclude Include="source\include\shader.hpp">
+      <Filter>Resources\Shader</Filter>
+    </ClInclude>
+    <ClInclude Include="source\include\texture.hpp">
+      <Filter>Resources\Texture</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="assets\textures\wall.jpg">
+      <Filter>Resources\Texture</Filter>
+    </Image>
+    <Image Include="assets\textures\awesomeface.png">
+      <Filter>Resources\Texture</Filter>
+    </Image>
   </ItemGroup>
 </Project>
