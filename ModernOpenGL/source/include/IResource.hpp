@@ -9,11 +9,11 @@
 class IResource
 {
 public:
-	IResource();
-	~IResource();
+	virtual void loadResource(fs::path filePath) = 0;
+	void loadFromPath()
+	{ loadResource(path); };
 
-	std::string name;
-
-private:
+	unsigned int ID;
+	fs::path path;
 };
 #endif

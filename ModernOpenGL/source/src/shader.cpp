@@ -1,10 +1,10 @@
 #include "../include/shader.hpp"
 #include "../include/debug.hpp"
 
-Shader::Shader(std::string vertexPath, std::string fragmentPath)
+Shader::Shader(string vertexPath, string fragmentPath)
 {
 	// 1_Retrieve the vertex/fragment source code from filePath
-	std::string   vertexCode, fragmentCode;
+	string   vertexCode, fragmentCode;
 	std::ifstream vShaderFile, fShaderFile;
 	// Ensure ifstream objects can throw exceptions:
 	vShaderFile.exceptions(std::ifstream::failbit | std::ifstream::badbit);
@@ -67,22 +67,22 @@ void Shader::use()
 	glUseProgram(ID);
 }
 
-void Shader::setBool(const std::string& name, bool value) const
+void Shader::setBool(const string& name, bool value) const
 {
 	glUniform1i(glGetUniformLocation(ID, name.c_str()), (int)value);
 }
 
-void Shader::setInt(const std::string& name, int value) const
+void Shader::setInt(const string& name, int value) const
 {
 	glUniform1i(glGetUniformLocation(ID, name.c_str()), value);
 }
 
-void Shader::setFloat(const std::string& name, float value) const
+void Shader::setFloat(const string& name, float value) const
 {
 	glUniform1f(glGetUniformLocation(ID, name.c_str()), value);
 }
 
-void Shader::checkCompileErrors(unsigned int shader, std::string type)
+void Shader::checkCompileErrors(unsigned int shader, string type)
 {
 	int success; char infoLog[1024];
 	if (type != "LINKING")
@@ -91,8 +91,8 @@ void Shader::checkCompileErrors(unsigned int shader, std::string type)
 		if (!success)
 		{
 			glGetShaderInfoLog(shader, 1024, NULL, infoLog);
-			DEBUG_LOG("ERROR::SHADER_COMPILATION_ERROR of type: " << type << "\n"
-				<< infoLog << "\n-------------------------------------------------------");
+			DEBUG_LOG("ERROR::SHADER_COMPILATION_ERROR of type: %s \n %s \n-------------------------------------------------------"
+				, type, infoLog);
 		}
 	}
 	else
@@ -101,8 +101,8 @@ void Shader::checkCompileErrors(unsigned int shader, std::string type)
 		if (!success)
 		{
 			glGetProgramInfoLog(shader, 1024, NULL, infoLog);
-			DEBUG_LOG("ERROR::PROGRAM_LINKING_ERROR of type: " << type << "\n"
-				<< infoLog << "\n-------------------------------------------------------");
+			DEBUG_LOG("ERROR::PROGRAM_LINKING_ERROR of type: %s \n %s \n-------------------------------------------------------"
+				, type, infoLog);
 		}
 	}
 }

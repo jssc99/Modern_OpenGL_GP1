@@ -135,9 +135,7 @@
   <ItemGroup>
     <ClCompile Include="external\src\glad.c" />
     <ClCompile Include="source\src\debug.cpp" />
-    <ClCompile Include="source\src\IResource.cpp" />
     <ClCompile Include="source\src\main.cpp" />
-    <ClCompile Include="source\src\resourceManager.cpp" />
     <ClCompile Include="source\src\shader.cpp" />
     <ClCompile Include="source\src\texture.cpp" />
   </ItemGroup>

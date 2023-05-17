@@ -34,8 +34,7 @@ void Log::print(const char* format, ...)
 
 	if (logFile.is_open())
 		logFile << buffer;
-	else
-		std::cout << buffer;
+	cout << buffer;
 
 	va_end(args);
 }

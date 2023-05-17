@@ -51,14 +51,8 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="source\src\resourceManager.cpp">
-      <Filter>Resources\RessourcesManager</Filter>
-    </ClCompile>
     <ClCompile Include="source\src\debug.cpp">
       <Filter>Core\Debug</Filter>
-    </ClCompile>
-    <ClCompile Include="source\src\IResource.cpp">
-      <Filter>Resources\RessourcesManager</Filter>
     </ClCompile>
     <ClCompile Include="source\src\shader.cpp">
       <Filter>Resources\Shader</Filter>

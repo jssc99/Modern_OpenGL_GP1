@@ -4,6 +4,7 @@
 #include "../include/shader.hpp"
 #include "../include/texture.hpp"
 #include "../include/debug.hpp"
+#include "../include/resourceManager.hpp"
 
 #define STB_IMAGE_IMPLEMENTATION
 #include <stb_image.h>
@@ -17,15 +18,8 @@ const unsigned int HEIGHT = 600;
 
 int main()
 {
-	Log log;
-	//log.openFile("testLog.txt", true);
-	//log.print("%.2f coucou %d", 0.2f, 2);
-	//log.openFile("testLog.txt", false);
-	//log.print(" %.3f coucou %d", 0.2f, 6);
-	
-	//ASSERT(1 == 1);
-	//ASSERT(1 == 0);
-	//return 0;
+	static Log log;
+	ResourceManager rManager;
 
 	glfwInit();
 	
@@ -44,7 +38,7 @@ int main()
 	{
 		DEBUG_LOG("Failed to create GLFW window");
 		glfwTerminate();
-		ASSERT(window);
+		return EXIT_FAILURE;
 	}
 	glfwMakeContextCurrent(window);
 	glfwSetFramebufferSizeCallback(window, framebufferSizeCallback);
@@ -52,19 +46,19 @@ int main()
 	if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
 	{
 		DEBUG_LOG("Failed to initialize GLAD");
-		ASSERT(0);
+		return EXIT_FAILURE;
 	}
 
 	// Load Shader
 	Shader testShader("source/shaders/testShader.vert", "source/shaders/testShader.frag");
 
 	// Load Textures
-	//Texture wallTex("assets/textures/wall.jpg");
-	//Texture smileyTex("assets/textures/awesomeface.png");
+	Texture* wallTex = rManager.createR<Texture>("wall.jpg");
+	Texture* smileyTex = rManager.createR<Texture>("awesomeface.png");
 
 	// Triangle vertices
 	float vertices[] = {
-		//		POS	    //	   COL		//   UV
+	//		  POS	    ||	   COL		||   UV
 		 .5f, -.5f, 0.f,  1.f, 0.f, 0.f,  2.f, 0.f, // bottom right
 		-.5f, -.5f, 0.f,  0.f, 1.f, 0.f,  0.f, 0.f, // bottom left
 		 0.f,  .5f, 0.f,  0.f, 0.f, 1.f,  .5f, 2.f, // top
@@ -115,8 +109,8 @@ int main()
 		glClear(GL_COLOR_BUFFER_BIT);
 
 		// bind textures on corresponding texture units
-		//wallTex.use(GL_TEXTURE0);
-		//smileyTex.use(GL_TEXTURE1);
+		wallTex->use(GL_TEXTURE0);
+		smileyTex->use(GL_TEXTURE1);
 
 		// Drawing triangle
 		testShader.use();

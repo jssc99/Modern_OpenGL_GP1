@@ -8,19 +8,18 @@
 
 #include "IResource.hpp"
 
-class Texture : IResource
+class Texture : public IResource
 {
 public:
-    Texture(std::string texturePath, std::string name);
+    Texture();
     ~Texture();
 
-    unsigned int ID;
-
-    // use/activate the texture
     void use(int GL_textureSlot);
 
+    void loadResource(fs::path filePath) override;
+
 private:
-    int width, height, nrChannels;
+    int width = 0, height = 0, nrChannels = 0;
 };
 
 #endif
