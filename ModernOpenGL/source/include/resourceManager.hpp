@@ -82,11 +82,12 @@ T* ResourceManager::getR(string name)
 void ResourceManager::deleteR(string name)
 {
 	if (resources[name]) {
+		delete resources[name];
 		resources.erase(name);
 		DEBUG_LOG("%s has been delete from resourceManager\n", name);
 		return;
 	}
 
-	DEBUG_LOG("%s was NOT delete from resourceManager, item NOT found\n", name);
+	DEBUG_LOG("%s was NOT deleted from resourceManager, item NOT found\n", name);
 }
 #endif 

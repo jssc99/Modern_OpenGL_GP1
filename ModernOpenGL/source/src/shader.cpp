@@ -1,8 +1,16 @@
 #include "../include/shader.hpp"
 #include "../include/debug.hpp"
 
-Shader::Shader(string vertexPath, string fragmentPath)
+Shader::~Shader()
 {
+	glDeleteProgram(ID);
+}
+
+void Shader::loadResource(fs::path shaderName)
+{
+	string vertexPath = shaderName.string() + ".vert";
+	string fragmentPath = shaderName.string() + ".frag";
+
 	// 1_Retrieve the vertex/fragment source code from filePath
 	string   vertexCode, fragmentCode;
 	std::ifstream vShaderFile, fShaderFile;
@@ -55,11 +63,6 @@ Shader::Shader(string vertexPath, string fragmentPath)
 
 	glDeleteShader(vertex);
 	glDeleteShader(fragment);
-}
-
-Shader::~Shader()
-{
-	glDeleteProgram(ID);
 }
 
 void Shader::use()

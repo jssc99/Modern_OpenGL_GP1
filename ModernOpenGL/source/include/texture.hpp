@@ -11,8 +11,8 @@
 class Texture : public IResource
 {
 public:
-    Texture();
-    ~Texture();
+    Texture() {};
+    ~Texture() {};
 
     void use(int GL_textureSlot);
 

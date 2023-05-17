@@ -1,12 +1,6 @@
 #include "../include/texture.hpp"
 #include "../include/debug.hpp"
 
-Texture::Texture()
-{ }
-
-Texture::~Texture()
-{ }
-
 void Texture::use(int GL_textureSlot)
 {
 	glActiveTexture(GL_textureSlot);

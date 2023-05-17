@@ -66,6 +66,9 @@
     <ClCompile Include="source\src\main.cpp">
       <Filter>Core</Filter>
     </ClCompile>
+    <ClCompile Include="source\src\model.cpp">
+      <Filter>Resources\Model</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="source\shaders\testShader.frag">
@@ -90,6 +93,12 @@
     </ClInclude>
     <ClInclude Include="source\include\texture.hpp">
       <Filter>Resources\Texture</Filter>
+    </ClInclude>
+    <ClInclude Include="source\include\model.hpp">
+      <Filter>Resources\Model</Filter>
+    </ClInclude>
+    <ClInclude Include="source\include\basicMath.hpp">
+      <Filter>Core\Math</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

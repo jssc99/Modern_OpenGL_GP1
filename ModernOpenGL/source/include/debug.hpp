@@ -14,7 +14,6 @@ using std::cin; using std::cout;
 using std::endl; using std::string;
 
 #define __FILENAME__ (strrchr(__FILE__, '\\') ? strrchr(__FILE__, '\\') + 1 : __FILE__)
-//#define DEBUG_LOG(txt) OutputDebugStringA(__FILENAME__ << '(' << __LINE__ << "): " << txt);
 #define DEBUG_LOG(txt, ...) DBLOut(txt, __VA_ARGS__);
 
 #ifdef NDEBUG
@@ -28,8 +27,8 @@ namespace fs = std::filesystem;
 class Log
 {
 public:
-	Log();
-	~Log();
+	Log() {};
+	~Log() { if (logFile.is_open()) logFile.close(); };
 
 	bool openFile(fs::path const& filePath, bool overrideFileWhenWriting);
 	void print(const char* format, ...);
@@ -48,12 +47,12 @@ static void DBLOut(const char* txt, ...)
 
 	std::wostringstream out;
 	out << __FILENAME__ << "(" << __LINE__ << "): ";
-	out << buffer;
+	out << buffer << '\n';
 
 	OutputDebugStringW(out.str().c_str());
 
 	cout << __FILENAME__ << "(" << __LINE__ << "): ";
-	cout << buffer;
+	cout << buffer << '\n';
 
 	va_end(args);
 }

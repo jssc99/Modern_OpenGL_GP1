@@ -4,19 +4,22 @@
 #include <glad/glad.h> // include glad to get all the required OpenGL headers
 
 #include "debug.hpp"
+#include "IResource.hpp"
 
 #include <string>
 #include <fstream>
 #include <sstream>
 #include <iostream>
 
-class Shader
+class Shader : public IResource
 {
 public:
     unsigned int ID;
 
-    Shader(string vertexPath, string fragmentPath);
+    Shader() {};
     ~Shader();
+
+    void loadResource(fs::path shaderName) override;
 
     void use();
 

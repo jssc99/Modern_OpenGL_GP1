@@ -1,13 +1,5 @@
 #include "../include/debug.hpp"
 
-Log::Log()
-{ }
-
-Log::~Log()
-{
-	if (logFile.is_open()) logFile.close();
-}
-
 bool Log::openFile(fs::path const& filePath, bool overrideFileWhenWriting = false)
 {
 	if (logFile.is_open())
