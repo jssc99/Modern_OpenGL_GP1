@@ -22,9 +22,9 @@ int main()
 	static Log log;
 	ResourceManager rManager;
 
-	Model* test = rManager.createR<Model>("Tree.obj");
+	Model* tree = rManager.createR<Model>("Tree.obj");
 
-	return 0;
+	//return 0;
 	glfwInit();
 	
 	// Window config
@@ -54,7 +54,8 @@ int main()
 	}
 
 	// Load Shader
-	//Shader testShader("source/shaders/testShader.vert", "source/shaders/testShader.frag");
+	Shader* testShader = rManager.createR<Shader>("testShader");
+	//testShader->setVertexS(rManager.findPath("test2"), true);
 
 	// Load Textures
 	Texture* wallTex = rManager.createR<Texture>("wall.jpg");
@@ -98,9 +99,9 @@ int main()
 		//glBindVertexArray(0);
 	//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 
-	//testShader.use();
-	//glUniform1i(glGetUniformLocation(testShader.ID, "texture1"), 0);
-	//testShader.setInt("texture2", 1);
+	testShader->use();
+	glUniform1i(glGetUniformLocation(testShader->ID, "texture1"), 0);
+	testShader->setInt("texture2", 1);
 
 	// Main loop
 	while (!glfwWindowShouldClose(window))
@@ -117,7 +118,7 @@ int main()
 		smileyTex->use(GL_TEXTURE1);
 
 		// Drawing triangle
-		//testShader.use();
+		testShader->use();
 		glBindVertexArray(VAO);
 		glDrawArrays(GL_TRIANGLES, 0, 3);
 			//glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);

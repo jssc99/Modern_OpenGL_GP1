@@ -14,12 +14,14 @@
 class Shader : public IResource
 {
 public:
-    unsigned int ID;
-
     Shader() {};
     ~Shader();
 
     void loadResource(fs::path shaderName) override;
+
+    bool setVertexS(fs::path filePath, bool autoLink = false);
+    bool setFragmentS(fs::path filePath, bool autoLink = false);
+    bool linkShaders();
 
     void use();
 
@@ -28,7 +30,9 @@ public:
     void setFloat(const string& name, float value) const;
 
 private:
-    void checkCompileErrors(unsigned int shader, string type);
+    unsigned int vertex = 0, fragment = 0;
+
+    bool checkCompileErrors(unsigned int shader, string type);
 };
 
 #endif

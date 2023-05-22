@@ -8,61 +8,94 @@ Shader::~Shader()
 
 void Shader::loadResource(fs::path shaderName)
 {
-	string vertexPath = shaderName.string() + ".vert";
-	string fragmentPath = shaderName.string() + ".frag";
+	fs::path vertexPath, fragmentPath;
+	if (shaderName.extension() == ".frag") 
+	{
+		fragmentPath = shaderName;
+		vertexPath = shaderName.replace_extension(".vert");
+	}
+	else if (shaderName.extension() == ".vert")
+	{
+		vertexPath = shaderName;
+		fragmentPath = shaderName.replace_extension(".frag");
+	}
+	else 
+		DEBUG_LOG("No proper extension found, Shader class uses .vert & .frag");
 
-	// 1_Retrieve the vertex/fragment source code from filePath
-	string   vertexCode, fragmentCode;
-	std::ifstream vShaderFile, fShaderFile;
-	// Ensure ifstream objects can throw exceptions:
-	vShaderFile.exceptions(std::ifstream::failbit | std::ifstream::badbit);
-	fShaderFile.exceptions(std::ifstream::failbit | std::ifstream::badbit);
+	setVertexS(vertexPath);
+	setFragmentS(fragmentPath, true);
+}
+
+string loadCode(fs::path path)
+{
+	string code; std::ifstream ShaderFile;
+	ShaderFile.exceptions(std::ifstream::failbit | std::ifstream::badbit);
 	try
 	{
-		vShaderFile.open(vertexPath.c_str());
-		fShaderFile.open(fragmentPath.c_str());
-		std::stringstream vShaderStream, fShaderStream;
+		ShaderFile.open(path.string());
 
-		vShaderStream << vShaderFile.rdbuf();
-		fShaderStream << fShaderFile.rdbuf();
+		std::stringstream ShaderStream;
+		ShaderStream << ShaderFile.rdbuf();
 
-		vShaderFile.close();
-		fShaderFile.close();
-
-		vertexCode = vShaderStream.str();
-		fragmentCode = fShaderStream.str();
+		ShaderFile.close();
+		code = ShaderStream.str();
 	}
 	catch (std::ifstream::failure e)
 	{
 		DEBUG_LOG("ERROR::SHADER::FILE_NOT_SUCCESFULLY_READ");
 	}
-	const char* vShaderCode = vertexCode.c_str();
-	const char* fShaderCode = fragmentCode.c_str();
+	return code;
+}
 
-	// 2_Compile shaders
-	unsigned int vertex, fragment;
+// returns 1 on error
+bool Shader::setVertexS(fs::path filePath, bool autoLink)
+{
+	string code = loadCode(filePath);
+	const char* ShaderCode = code.c_str();
 
-	// Vertex Shader
 	vertex = glCreateShader(GL_VERTEX_SHADER);
-	glShaderSource(vertex, 1, &vShaderCode, NULL);
+	glShaderSource(vertex, 1, &ShaderCode, NULL);
 	glCompileShader(vertex);
-	checkCompileErrors(vertex, "VERTEX");
+	bool success = checkCompileErrors(vertex, "VERTEX");
 
-	// Fragment Shader
+	if (success) return success;
+
+	if (!success && autoLink)
+		return linkShaders();
+
+	return success;
+}
+
+// returns 1 on error
+bool Shader::setFragmentS(fs::path filePath, bool autoLink)
+{
+	string code = loadCode(filePath);
+	const char* ShaderCode = code.c_str();
+
 	fragment = glCreateShader(GL_FRAGMENT_SHADER);
-	glShaderSource(fragment, 1, &fShaderCode, NULL);
+	glShaderSource(fragment, 1, &ShaderCode, NULL);
 	glCompileShader(fragment);
-	checkCompileErrors(fragment, "FRAGMENT");
+	bool success = checkCompileErrors(fragment, "FRAGMENT");
 
-	// Shader Program
+	if (success) return success;
+
+	if (!success && autoLink)
+		return linkShaders();
+
+	return success;
+}
+
+// returns 1 on error
+bool Shader::linkShaders()
+{
 	ID = glCreateProgram();
 	glAttachShader(ID, vertex);
 	glAttachShader(ID, fragment);
 	glLinkProgram(ID);
-	checkCompileErrors(ID, "LINKING");
 
 	glDeleteShader(vertex);
 	glDeleteShader(fragment);
+	return checkCompileErrors(ID, "LINKING");
 }
 
 void Shader::use()
@@ -85,7 +118,8 @@ void Shader::setFloat(const string& name, float value) const
 	glUniform1f(glGetUniformLocation(ID, name.c_str()), value);
 }
 
-void Shader::checkCompileErrors(unsigned int shader, string type)
+// returns 1 on error
+bool Shader::checkCompileErrors(unsigned int shader, string type)
 {
 	int success; char infoLog[1024];
 	if (type != "LINKING")
@@ -95,7 +129,8 @@ void Shader::checkCompileErrors(unsigned int shader, string type)
 		{
 			glGetShaderInfoLog(shader, 1024, NULL, infoLog);
 			DEBUG_LOG("ERROR::SHADER_COMPILATION_ERROR of type: %s \n %s \n-------------------------------------------------------"
-				, type, infoLog);
+				, type.c_str(), infoLog);
+			return 1;
 		}
 	}
 	else
@@ -105,7 +140,9 @@ void Shader::checkCompileErrors(unsigned int shader, string type)
 		{
 			glGetProgramInfoLog(shader, 1024, NULL, infoLog);
 			DEBUG_LOG("ERROR::PROGRAM_LINKING_ERROR of type: %s \n %s \n-------------------------------------------------------"
-				, type, infoLog);
+				, type.c_str(), infoLog);
+			return 1;
 		}
 	}
+	return 0;
 }

@@ -21,17 +21,11 @@ public:
 
 	void deleteR(string nameFile);
 
+	fs::path findPath(string nameFile);
+
 private:
 	std::map<string, IResource*> resources;
 };
-
-fs::path findPath(string nameFile)
-{
-	for (fs::path file : fs::recursive_directory_iterator(fs::current_path()))
-		if (!file.filename().string().compare(nameFile))
-			return file;
-	return fs::path();
-}
 
 template<class T>
 T* ResourceManager::createR(string nameFile)
@@ -59,7 +53,7 @@ T* ResourceManager::createR(string nameFile)
 
 	if (pathFile == "")
 	{
-		DEBUG_LOG("file not found: %s", nameFile);
+		DEBUG_LOG("file not found: %s", nameFile.c_str());
 		return nullptr;
 	}
 
@@ -90,4 +84,13 @@ void ResourceManager::deleteR(string name)
 
 	DEBUG_LOG("%s was NOT deleted from resourceManager, item NOT found\n", name);
 }
+
+fs::path ResourceManager::findPath(string nameFile)
+{
+	for (fs::path file : fs::recursive_directory_iterator(fs::current_path()))
+		if (file.filename().string().find(nameFile) != string::npos)
+			return file;
+	return fs::path();
+}
+
 #endif 

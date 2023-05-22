@@ -14,7 +14,7 @@ using std::cin; using std::cout;
 using std::endl; using std::string;
 
 #define __FILENAME__ (strrchr(__FILE__, '\\') ? strrchr(__FILE__, '\\') + 1 : __FILE__)
-#define DEBUG_LOG(txt, ...) DBLOut(txt, __VA_ARGS__);
+#define DEBUG_LOG(txt, ...) DBLOut(__FILENAME__, __LINE__, txt, __VA_ARGS__);\
 
 #ifdef NDEBUG
 #define ASSERT(x) if(!x) exit(EXIT_FAILURE);
@@ -37,7 +37,7 @@ private:
 	std::fstream logFile;
 };
 
-static void DBLOut(const char* txt, ...)
+static void DBLOut(const char* fileName = __FILENAME__, int lineNumb = __LINE__, const char* txt = "", ...)
 {
 	va_list args;
 	va_start(args, txt);
@@ -46,12 +46,12 @@ static void DBLOut(const char* txt, ...)
 	vsprintf_s(buffer, txt, args);
 
 	std::wostringstream out;
-	out << __FILENAME__ << "(" << __LINE__ << "): ";
+	out << fileName << "(" << lineNumb << "): ";
 	out << buffer << '\n';
 
 	OutputDebugStringW(out.str().c_str());
 
-	cout << __FILENAME__ << "(" << __LINE__ << "): ";
+	cout << fileName << "(" << lineNumb << "): ";
 	cout << buffer << '\n';
 
 	va_end(args);

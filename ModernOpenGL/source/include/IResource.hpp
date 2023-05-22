@@ -13,7 +13,7 @@ public:
 	void loadFromPath()
 	{ loadResource(path); };
 
-	unsigned int ID;
+	unsigned int ID = 0;
 	fs::path path;
 };
 #endif
