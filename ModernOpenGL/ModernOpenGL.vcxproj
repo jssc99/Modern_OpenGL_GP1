@@ -113,7 +113,7 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>glfw3.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>glfw3.lib;glm_static.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -134,6 +134,9 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="external\src\glad.c" />
+    <ClCompile Include="source\src\application.cpp" />
+    <ClCompile Include="source\src\buffer.cpp" />
+    <ClCompile Include="source\src\camera.cpp" />
     <ClCompile Include="source\src\debug.cpp" />
     <ClCompile Include="source\src\main.cpp" />
     <ClCompile Include="source\src\model.cpp" />
@@ -145,7 +148,10 @@
     <None Include="source\shaders\testShader.frag" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="source\include\application.hpp" />
     <ClInclude Include="source\include\basicMath.hpp" />
+    <ClInclude Include="source\include\buffer.hpp" />
+    <ClInclude Include="source\include\camera.hpp" />
     <ClInclude Include="source\include\debug.hpp" />
     <ClInclude Include="source\include\IResource.hpp" />
     <ClInclude Include="source\include\model.hpp" />

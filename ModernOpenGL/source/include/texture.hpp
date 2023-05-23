@@ -11,15 +11,16 @@
 class Texture : public IResource
 {
 public:
-    Texture() {};
-    ~Texture() {};
+	Texture() {};
+	~Texture() {};
 
-    void use(int GL_textureSlot);
+	void loadResource(fs::path filePath) override;
 
-    void loadResource(fs::path filePath) override;
+	void use(int GL_textureSlot);
+	void stopUse();
 
 private:
-    int width = 0, height = 0, nrChannels = 0;
+	int width = 0, height = 0, nrChannels = 0;
 };
 
 #endif

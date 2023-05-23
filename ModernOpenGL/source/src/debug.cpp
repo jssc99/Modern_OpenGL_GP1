@@ -1,6 +1,6 @@
 #include "../include/debug.hpp"
 
-bool Log::openFile(fs::path const& filePath, bool overrideFileWhenWriting = false)
+void Log::openFile(fs::path const& filePath, bool overrideFileWhenWriting)
 {
 	if (logFile.is_open())
 	{
@@ -13,7 +13,7 @@ bool Log::openFile(fs::path const& filePath, bool overrideFileWhenWriting = fals
 	else
 		logFile.open(filePath, std::ofstream::out | std::ofstream::app);
 
-	return logFile.is_open();
+	ASSERT(logFile.is_open());
 }
 
 void Log::print(const char* format, ...)

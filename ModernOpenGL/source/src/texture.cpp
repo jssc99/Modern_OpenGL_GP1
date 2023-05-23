@@ -1,10 +1,18 @@
 #include "../include/texture.hpp"
 #include "../include/debug.hpp"
 
+#define STB_IMAGE_IMPLEMENTATION
+#include <stb_image.h>
+
 void Texture::use(int GL_textureSlot)
 {
 	glActiveTexture(GL_textureSlot);
 	glBindTexture(GL_TEXTURE_2D, ID);
+}
+
+void Texture::stopUse()
+{
+	glBindTexture(GL_TEXTURE_2D, 0);
 }
 
 void Texture::loadResource(fs::path filePath)

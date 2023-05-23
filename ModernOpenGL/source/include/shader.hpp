@@ -14,25 +14,25 @@
 class Shader : public IResource
 {
 public:
-    Shader() {};
-    ~Shader();
+	Shader() {};
+	~Shader();
 
-    void loadResource(fs::path shaderName) override;
+	void loadResource(fs::path shaderName) override;
 
-    bool setVertexS(fs::path filePath, bool autoLink = false);
-    bool setFragmentS(fs::path filePath, bool autoLink = false);
-    bool linkShaders();
+	bool setVertexS(fs::path filePath, bool autoLink = false);
+	bool setFragmentS(fs::path filePath, bool autoLink = false);
+	bool linkShaders();
 
-    void use();
+	void use();
 
-    void setBool(const string& name, bool value) const;
-    void setInt(const string& name, int value) const;
-    void setFloat(const string& name, float value) const;
+	void setBool(const string& name, bool value) const;
+	void setInt(const string& name, int value) const;
+	void setFloat(const string& name, float value) const;
 
 private:
-    unsigned int vertex = 0, fragment = 0;
+	unsigned int vertex = 0, fragment = 0;
 
-    bool checkCompileErrors(unsigned int shader, string type);
+	bool checkCompileErrors(unsigned int shader, string type);
 };
 
 #endif

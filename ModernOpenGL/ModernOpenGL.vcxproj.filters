@@ -69,6 +69,15 @@
     <ClCompile Include="source\src\model.cpp">
       <Filter>Resources\Model</Filter>
     </ClCompile>
+    <ClCompile Include="source\src\application.cpp">
+      <Filter>Core</Filter>
+    </ClCompile>
+    <ClCompile Include="source\src\buffer.cpp">
+      <Filter>Resources\Model</Filter>
+    </ClCompile>
+    <ClCompile Include="source\src\camera.cpp">
+      <Filter>LowRenderer\Camera</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="source\shaders\testShader.frag">
@@ -99,6 +108,15 @@
     </ClInclude>
     <ClInclude Include="source\include\basicMath.hpp">
       <Filter>Core\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="source\include\application.hpp">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="source\include\buffer.hpp">
+      <Filter>Resources\Model</Filter>
+    </ClInclude>
+    <ClInclude Include="source\include\camera.hpp">
+      <Filter>LowRenderer\Camera</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

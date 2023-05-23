@@ -2,7 +2,6 @@
 #define DEBUG_H
 
 #include <fstream>
-#include <string>
 #include <sstream>
 #include <iostream>
 #include <filesystem>
@@ -14,7 +13,7 @@ using std::cin; using std::cout;
 using std::endl; using std::string;
 
 #define __FILENAME__ (strrchr(__FILE__, '\\') ? strrchr(__FILE__, '\\') + 1 : __FILE__)
-#define DEBUG_LOG(txt, ...) DBLOut(__FILENAME__, __LINE__, txt, __VA_ARGS__);\
+#define DEBUG_LOG(txt, ...) DBLOut(__FILENAME__, __LINE__, txt, __VA_ARGS__);
 
 #ifdef NDEBUG
 #define ASSERT(x) if(!x) exit(EXIT_FAILURE);
@@ -30,7 +29,7 @@ public:
 	Log() {};
 	~Log() { if (logFile.is_open()) logFile.close(); };
 
-	bool openFile(fs::path const& filePath, bool overrideFileWhenWriting);
+	void openFile(fs::path const& filePath, bool overrideFileWhenWriting = false);
 	void print(const char* format, ...);
 
 private:

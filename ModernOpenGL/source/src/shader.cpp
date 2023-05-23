@@ -9,7 +9,7 @@ Shader::~Shader()
 void Shader::loadResource(fs::path shaderName)
 {
 	fs::path vertexPath, fragmentPath;
-	if (shaderName.extension() == ".frag") 
+	if (shaderName.extension() == ".frag")
 	{
 		fragmentPath = shaderName;
 		vertexPath = shaderName.replace_extension(".vert");
@@ -19,7 +19,7 @@ void Shader::loadResource(fs::path shaderName)
 		vertexPath = shaderName;
 		fragmentPath = shaderName.replace_extension(".frag");
 	}
-	else 
+	else
 		DEBUG_LOG("No proper extension found, Shader class uses .vert & .frag");
 
 	setVertexS(vertexPath);

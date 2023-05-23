@@ -11,13 +11,13 @@ class ResourceManager
 {
 public:
 	ResourceManager() {};
-	~ResourceManager() {};
+	~ResourceManager() {
+		resources.clear();
+	};
 
-	template <class T>
-	T* createR(string nameFile);
+	template <class T> T* createR(string nameFile);
 
-	template <class T>
-	T* getR(string nameFile);
+	template <class T> T* getR(string nameFile);
 
 	void deleteR(string nameFile);
 
@@ -31,7 +31,7 @@ template<class T>
 T* ResourceManager::createR(string nameFile)
 {
 	// algo:
-	// if resource already exist 
+	// if resource already exist
 	// replace with & return new one
 	// else
 	// find resource in files

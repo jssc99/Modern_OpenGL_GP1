@@ -1,12 +1,12 @@
 #ifndef MODEL_H
 #define MODEL_H
 
-#include "IResource.hpp"
-#include "basicMath.hpp"
+class Buffer;
 
 #include <vector>
 using std::vector;
 
+#include "basicMath.hpp"
 struct Vertex
 {
 	Vec3 Position;
@@ -14,22 +14,35 @@ struct Vertex
 	Vec2 TextureUV;
 };
 
+#include "IResource.hpp"
+#include "buffer.hpp"
+
 class Model : public IResource
 {
 public:
-	Model() {};
-	~Model() {};
+	Model() {
+		loadFromPath();
+	};
+	~Model();
 
 	void loadResource(fs::path filePath) override;
+
+	void draw();
 
 private:
 	vector<Vertex> vertices;
 	vector<uint32_t> indices;
 
-	uint32_t createIndice(string line, vector<Vec3>& tmpVPos, vector<Vec2>& tmpVText, vector<Vec3>& tmpVNorm);
+	vector<Vec3> tmpVPos;
+	vector<Vec2> tmpVText;
+	vector<Vec3> tmpVNorm;
+
+	uint32_t createIndice(string& line);
 
 	uint32_t getPosString(string line);
 	uint32_t getTexString(string line);
 	uint32_t getNorString(string line);
+
+	Buffer* buffer = nullptr;
 };
 #endif
