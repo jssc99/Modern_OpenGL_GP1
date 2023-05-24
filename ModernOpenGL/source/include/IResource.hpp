@@ -1,5 +1,4 @@
-#ifndef IRESOURCE_H
-#define IRESOURCE_H
+#pragma once
 
 #include <glad/glad.h> // include glad to get all the required OpenGL headers
 #include <string>
@@ -18,4 +17,3 @@ public:
 	unsigned int ID = 0;
 	fs::path path;
 };
-#endif

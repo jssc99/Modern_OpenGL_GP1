@@ -1,5 +1,4 @@
-#ifndef BUFFER_H
-#define BUFFER_H
+#pragma once
 
 #include <glad/glad.h> // include glad to get all the required OpenGL headers
 
@@ -16,4 +15,3 @@ public:
 
 	unsigned int VAO, VBO, EBO;
 };
-#endif

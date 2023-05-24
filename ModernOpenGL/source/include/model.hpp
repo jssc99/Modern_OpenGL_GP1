@@ -1,17 +1,16 @@
-#ifndef MODEL_H
-#define MODEL_H
+#pragma once
 
 class Buffer;
 
 #include <vector>
 using std::vector;
 
-#include "basicMath.hpp"
+#include "basicmath.hpp"
 struct Vertex
 {
-	Vec3 Position;
-	Vec3 Normal;
-	Vec2 TextureUV;
+	vec3 Position;
+	vec3 Normal;
+	vec2 TextureUV;
 };
 
 #include "IResource.hpp"
@@ -33,9 +32,9 @@ private:
 	vector<Vertex> vertices;
 	vector<uint32_t> indices;
 
-	vector<Vec3> tmpVPos;
-	vector<Vec2> tmpVText;
-	vector<Vec3> tmpVNorm;
+	vector<vec3> tmpVPos;
+	vector<vec2> tmpVText;
+	vector<vec3> tmpVNorm;
 
 	uint32_t createIndice(string& line);
 
@@ -45,4 +44,3 @@ private:
 
 	Buffer* buffer = nullptr;
 };
-#endif

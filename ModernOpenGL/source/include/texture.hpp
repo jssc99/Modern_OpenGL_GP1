@@ -1,5 +1,4 @@
-#ifndef TEXTURE_H
-#define TEXTURE_H
+#pragma once
 
 #include <glad/glad.h> // include glad to get all the required OpenGL headers
 
@@ -22,5 +21,3 @@ public:
 private:
 	int width = 0, height = 0, nrChannels = 0;
 };
-
-#endif

@@ -1,5 +1,4 @@
-#ifndef DEBUG_H
-#define DEBUG_H
+#pragma once
 
 #include <fstream>
 #include <sstream>
@@ -55,4 +54,3 @@ static void DBLOut(const char* fileName = __FILENAME__, int lineNumb = __LINE__,
 
 	va_end(args);
 }
-#endif

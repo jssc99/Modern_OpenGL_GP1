@@ -1,8 +1,7 @@
 #include "../include/shader.hpp"
 #include "../include/debug.hpp"
 
-Shader::~Shader()
-{
+Shader::~Shader() {
 	glDeleteProgram(ID);
 }
 
@@ -28,21 +27,21 @@ void Shader::loadResource(fs::path shaderName)
 
 string loadCode(fs::path path)
 {
-	string code; std::ifstream ShaderFile;
-	ShaderFile.exceptions(std::ifstream::failbit | std::ifstream::badbit);
+	string code; std::ifstream shaderFile;
+	shaderFile.exceptions(std::ifstream::failbit | std::ifstream::badbit);
 	try
 	{
-		ShaderFile.open(path.string());
+		shaderFile.open(path.string());
 
-		std::stringstream ShaderStream;
-		ShaderStream << ShaderFile.rdbuf();
+		std::stringstream shaderStream;
+		shaderStream << shaderFile.rdbuf();
 
-		ShaderFile.close();
-		code = ShaderStream.str();
+		shaderFile.close();
+		code = shaderStream.str();
 	}
-	catch (std::ifstream::failure e)
+	catch (std::ifstream::failure& e)
 	{
-		DEBUG_LOG("ERROR::SHADER::FILE_NOT_SUCCESFULLY_READ");
+		DEBUG_LOG("ERROR::SHADER::FILE_NOT_SUCCESFULLY_READ: ", e.what());
 	}
 	return code;
 }
@@ -98,28 +97,60 @@ bool Shader::linkShaders()
 	return checkCompileErrors(ID, "LINKING");
 }
 
-void Shader::use()
-{
+void Shader::use() {
 	glUseProgram(ID);
 }
 
-void Shader::setBool(const string& name, bool value) const
-{
+void Shader::setBool(const string& name, bool value) const {
 	glUniform1i(glGetUniformLocation(ID, name.c_str()), (int)value);
 }
 
-void Shader::setInt(const string& name, int value) const
-{
+void Shader::setInt(const string& name, int value) const {
 	glUniform1i(glGetUniformLocation(ID, name.c_str()), value);
 }
 
-void Shader::setFloat(const string& name, float value) const
-{
+void Shader::setFloat(const string& name, float value) const {
 	glUniform1f(glGetUniformLocation(ID, name.c_str()), value);
 }
 
+void Shader::setvec2(const std::string& name, const vec2& value) const {
+	glUniform2fv(glGetUniformLocation(ID, name.c_str()), 1, value.e);
+}
+
+void Shader::setvec2(const std::string& name, float x, float y) const {
+	glUniform2f(glGetUniformLocation(ID, name.c_str()), x, y);
+}
+
+void Shader::setvec3(const std::string& name, const vec3& value) const {
+	glUniform3fv(glGetUniformLocation(ID, name.c_str()), 1, value.e);
+}
+
+void Shader::setvec3(const std::string& name, float x, float y, float z) const {
+	glUniform3f(glGetUniformLocation(ID, name.c_str()), x, y, z);
+}
+
+void Shader::setvec4(const std::string& name, const mat4& value) const {
+	glUniform4fv(glGetUniformLocation(ID, name.c_str()), 1, value.e);
+}
+
+void Shader::setvec4(const std::string& name, float x, float y, float z, float w) const {
+	glUniform4f(glGetUniformLocation(ID, name.c_str()), x, y, z, w);
+}
+
+void Shader::setmat3(const std::string& name, const mat3& mat) const {
+	glUniformMatrix3fv(glGetUniformLocation(ID, name.c_str()), 1, GL_FALSE, mat.e);
+}
+
+void Shader::setmat4(const std::string& name, const mat4& mat) const {
+	glUniformMatrix4fv(glGetUniformLocation(ID, name.c_str()), 1, GL_FALSE, mat.e);
+}
+
+//void Shader::setmat4(const std::string& name, const glm::mat4& mat) const {
+//	glUniformMatrix4fv(glGetUniformLocation(ID, name.c_str()), 1, GL_FALSE, &mat[0][0]);
+//}
+
 // returns 1 on error
-bool Shader::checkCompileErrors(unsigned int shader, string type)
+bool Shader::checkCompileErrors(unsigned int& shader, string type)
 {
 	int success; char infoLog[1024];
 	if (type != "LINKING")

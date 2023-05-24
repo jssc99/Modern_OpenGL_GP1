@@ -113,7 +113,7 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>glfw3.lib;glm_static.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>glfw3.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -135,6 +135,7 @@
   <ItemGroup>
     <ClCompile Include="external\src\glad.c" />
     <ClCompile Include="source\src\application.cpp" />
+    <ClCompile Include="source\src\basicMath.cpp" />
     <ClCompile Include="source\src\buffer.cpp" />
     <ClCompile Include="source\src\camera.cpp" />
     <ClCompile Include="source\src\debug.cpp" />
@@ -150,6 +151,7 @@
   <ItemGroup>
     <ClInclude Include="source\include\application.hpp" />
     <ClInclude Include="source\include\basicMath.hpp" />
+    <ClInclude Include="source\include\types.hpp" />
     <ClInclude Include="source\include\buffer.hpp" />
     <ClInclude Include="source\include\camera.hpp" />
     <ClInclude Include="source\include\debug.hpp" />
@@ -158,10 +160,6 @@
     <ClInclude Include="source\include\resourceManager.hpp" />
     <ClInclude Include="source\include\shader.hpp" />
     <ClInclude Include="source\include\texture.hpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <Image Include="assets\textures\awesomeface.png" />
-    <Image Include="assets\textures\wall.jpg" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

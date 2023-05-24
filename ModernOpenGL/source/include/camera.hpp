@@ -1,20 +1,39 @@
-#ifndef CAMERA_H
-#define CAMERA_H
+#pragma once
 
-#include "basicMath.hpp"
+#include "basicmath.hpp"
+
+#include <glad/glad.h> // include glad to get all the required OpenGL headers
+#include <GLFW/glfw3.h>
+
+#include <glm/glm.hpp>
+#include <glm/gtc/matrix_transform.hpp>
 
 class Camera
 {
 public:
-	Camera();
+	Camera(int width, int height);
 	~Camera();
 
-private:
-	Vec3 position = { 0.f, 0.f, 3.f };
-	Vec3 target = { 0.f,0.f,0.f };
-	Vec3 direction;
+	void processInput(GLFWwindow* window, float deltaTime);
+	void processMouse(float xoffset, float yoffset);
+	void ProcessScroll(float yoffset);
 
-	Vec3 up = { 0.f,1.f,0.f };
-	Vec3 right;
+	void setPosition(vec3 newPos);
+
+	glm::mat4 getViewmatrix();
+	glm::mat4 getPerspectivematrix();
+
+	float speed = 2.5f;
+
+private:
+	vec3 position = { 0.f,0.f,5.f };
+	vec3 front = { 0.f,0.f,-1.f };
+	vec3 up = { 0.f,1.f,0.f };
+	vec3 right, worldUp = up;
+
+	float yaw = -90.f, pitch = 0.f;
+	float sensitivity = .1f, zoom = 45.f;
+	float near_ = .1f, far_ = 100.f, aspect;
+
+	void updateCameraVectors();
 };
-#endif

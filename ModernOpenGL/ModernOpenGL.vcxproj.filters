@@ -78,6 +78,9 @@
     <ClCompile Include="source\src\camera.cpp">
       <Filter>LowRenderer\Camera</Filter>
     </ClCompile>
+    <ClCompile Include="source\src\basicMath.cpp">
+      <Filter>Core\Math</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="source\shaders\testShader.frag">
@@ -106,7 +109,7 @@
     <ClInclude Include="source\include\model.hpp">
       <Filter>Resources\Model</Filter>
     </ClInclude>
-    <ClInclude Include="source\include\basicMath.hpp">
+    <ClInclude Include="source\include\types.hpp">
       <Filter>Core\Math</Filter>
     </ClInclude>
     <ClInclude Include="source\include\application.hpp">
@@ -118,13 +121,8 @@
     <ClInclude Include="source\include\camera.hpp">
       <Filter>LowRenderer\Camera</Filter>
     </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
-    <Image Include="assets\textures\wall.jpg">
-      <Filter>Resources\Texture</Filter>
-    </Image>
-    <Image Include="assets\textures\awesomeface.png">
-      <Filter>Resources\Texture</Filter>
-    </Image>
+    <ClInclude Include="source\include\basicMath.hpp">
+      <Filter>Core\Math</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

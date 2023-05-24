@@ -1,5 +1,4 @@
-#ifndef RESOURCEMANAGER_H
-#define RESOURCEMANAGER_H
+#pragma once
 
 #include "../include/texture.hpp"
 #include "../include/shader.hpp"
@@ -92,5 +91,3 @@ fs::path ResourceManager::findPath(string nameFile)
 			return file;
 	return fs::path();
 }
-
-#endif 

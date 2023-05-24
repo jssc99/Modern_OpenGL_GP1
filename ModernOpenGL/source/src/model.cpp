@@ -21,19 +21,19 @@ void Model::loadResource(fs::path filePath)
 
 		if (beginLine == "v")
 		{
-			Vec3 v;
+			vec3 v;
 			file >> v.x >> v.y >> v.z;
 			tmpVPos.push_back(v);
 		}
 		else if (beginLine == "vn")
 		{
-			Vec3 v;
+			vec3 v;
 			file >> v.x >> v.y >> v.z;
 			tmpVNorm.push_back(v);
 		}
 		else if (beginLine == "vt")
 		{
-			Vec2 v;
+			vec2 v;
 			file >> v.x >> v.y;
 			tmpVText.push_back(v);
 		}
@@ -81,11 +81,11 @@ void Model::loadResource(fs::path filePath)
 	}
 
 	//cout << "Test obj file:" << endl;
-	//for (Vec3 v : tmpVPos)
+	//for (vec3 v : tmpVPos)
 	//    cout << "v: " << v.x << ", " << v.y << ", " << v.z << endl;
-	//for (Vec3 v : tmpVNorm)
+	//for (vec3 v : tmpVNorm)
 	//    cout << "vn: " << v.x << ", " << v.y << ", " << v.z << endl;
-	//for (Vec2 v : tmpVText)
+	//for (vec2 v : tmpVText)
 	//    cout << "vt: " << v.x << ", " << v.y << endl;
 
 	//cout << "Indices:" << endl;
