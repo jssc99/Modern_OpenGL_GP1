@@ -138,16 +138,23 @@ void Shader::setvec4(const std::string& name, float x, float y, float z, float w
 }
 
 void Shader::setmat3(const std::string& name, const mat3& mat) const {
-	glUniformMatrix3fv(glGetUniformLocation(ID, name.c_str()), 1, GL_FALSE, mat.e);
+	mat4 fliped = {
+			   mat.v[0].x, mat.v[1].x, mat.v[2].x,
+			   mat.v[0].y, mat.v[1].y, mat.v[2].y,
+			   mat.v[0].z, mat.v[1].z, mat.v[2].z,
+	};
+	glUniformMatrix3fv(glGetUniformLocation(ID, name.c_str()), 1, GL_FALSE, fliped.e);
 }
 
 void Shader::setmat4(const std::string& name, const mat4& mat) const {
-	glUniformMatrix4fv(glGetUniformLocation(ID, name.c_str()), 1, GL_FALSE, mat.e);
+	mat4 fliped = {
+			   mat.v[0].x, mat.v[1].x, mat.v[2].x, mat.v[3].x,
+			   mat.v[0].y, mat.v[1].y, mat.v[2].y, mat.v[3].y,
+			   mat.v[0].z, mat.v[1].z, mat.v[2].z, mat.v[3].z,
+			   mat.v[0].w, mat.v[1].w, mat.v[2].w, mat.v[3].w
+	};
+	glUniformMatrix4fv(glGetUniformLocation(ID, name.c_str()), 1, GL_FALSE, fliped.e);
 }
-
-//void Shader::setmat4(const std::string& name, const glm::mat4& mat) const {
-//	glUniformMatrix4fv(glGetUniformLocation(ID, name.c_str()), 1, GL_FALSE, &mat[0][0]);
-//}
 
 // returns 1 on error
 bool Shader::checkCompileErrors(unsigned int& shader, string type)

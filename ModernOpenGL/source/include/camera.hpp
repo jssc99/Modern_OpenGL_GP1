@@ -20,8 +20,8 @@ public:
 
 	void setPosition(vec3 newPos);
 
-	glm::mat4 getViewmatrix();
-	glm::mat4 getPerspectivematrix();
+	mat4 getViewmatrix();
+	mat4 getPerspectivematrix();
 
 	float speed = 2.5f;
 

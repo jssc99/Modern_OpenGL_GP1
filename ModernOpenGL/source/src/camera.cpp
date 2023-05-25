@@ -47,14 +47,8 @@ void Camera::setPosition(vec3 newPos) {
 	position = newPos;
 }
 
-glm::mat4 Camera::getViewmatrix()
+mat4 Camera::getViewmatrix()
 {
-	glm::vec3 Position = { position.x, position.y, position.z };
-	glm::vec3 Target = { position.x + front.x, position.y + front.y, position.z + front.z };
-	glm::vec3 Up = { up.x, up.y, up.z };
-	return glm::lookAt(Position, Target, Up);
-
-	//return mat::identity4();
 	vec3 forward = calc::norm(-front);
 	vec3 right = calc::norm(calc::cross(calc::norm(up), forward));
 	vec3 newUp = calc::norm(calc::cross(forward, right));
@@ -70,14 +64,11 @@ glm::mat4 Camera::getViewmatrix()
 		0.f,       0.f,       0.f,       1.f
 	};
 
-	//return view;
+	return view;
 }
 
-glm::mat4 Camera::getPerspectivematrix()
+mat4 Camera::getPerspectivematrix()
 {
-	return glm::perspective(zoom, aspect, near_, far_);
-
-	//return mat::identity4();
 	mat4 mat = mat::identity4(0.f);
 
 	float range = far_ - near_;
@@ -90,7 +81,7 @@ glm::mat4 Camera::getPerspectivematrix()
 	mat.v[2].w = -2.f * near_ * far_ / range;
 	mat.v[3].z = -1.f;
 	
-	//return mat;
+	return mat;
 }
 
 void Camera::updateCameraVectors()
