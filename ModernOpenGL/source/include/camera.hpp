@@ -23,7 +23,7 @@ public:
 	mat4 getViewmatrix();
 	mat4 getPerspectivematrix();
 
-	float speed = 2.5f;
+	float speed = 6.f;
 
 private:
 	vec3 position = { 0.f,0.f,5.f };
@@ -31,7 +31,7 @@ private:
 	vec3 up = { 0.f,1.f,0.f };
 	vec3 right, worldUp = up;
 
-	float yaw = -90.f, pitch = 0.f;
+	float pitch = 0.f, yaw = -90.f;
 	float sensitivity = .1f, zoom = 45.f;
 	float near_ = .1f, far_ = 100.f, aspect;
 

@@ -138,7 +138,7 @@ void Shader::setvec4(const std::string& name, float x, float y, float z, float w
 }
 
 void Shader::setmat3(const std::string& name, const mat3& mat) const {
-	mat4 fliped = {
+	mat3 fliped = {
 			   mat.v[0].x, mat.v[1].x, mat.v[2].x,
 			   mat.v[0].y, mat.v[1].y, mat.v[2].y,
 			   mat.v[0].z, mat.v[1].z, mat.v[2].z,

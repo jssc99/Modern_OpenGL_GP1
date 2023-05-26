@@ -8,9 +8,9 @@ using std::vector;
 #include "basicmath.hpp"
 struct Vertex
 {
-	vec3 Position;
-	vec3 Normal;
-	vec2 TextureUV;
+	vec3 position;
+	vec3 normal;
+	vec2 textureUV;
 };
 
 #include "IResource.hpp"
@@ -19,10 +19,10 @@ struct Vertex
 class Model : public IResource
 {
 public:
-	Model() {
-		loadFromPath();
+	Model() {};
+	~Model() {
+		delete buffer;
 	};
-	~Model();
 
 	void loadResource(fs::path filePath) override;
 
@@ -33,14 +33,14 @@ private:
 	vector<uint32_t> indices;
 
 	vector<vec3> tmpVPos;
-	vector<vec2> tmpVText;
 	vector<vec3> tmpVNorm;
+	vector<vec2> tmpVText;
 
-	uint32_t createIndice(string& line);
+	uint32_t getIndice(string& line);
 
 	uint32_t getPosString(string line);
-	uint32_t getTexString(string line);
 	uint32_t getNorString(string line);
+	uint32_t getTexString(string line);
 
 	Buffer* buffer = nullptr;
 };

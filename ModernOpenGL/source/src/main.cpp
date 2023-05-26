@@ -14,110 +14,21 @@ int main()
 	ResourceManager rManager;
 
 	//Model* modelTest = rManager.createR<Model>("Tree.obj");
-	//Model* modelTest = rManager.createR<Model>("Viking.obj");
+	Model* modelTest = rManager.createR<Model>("Viking.obj");
 	//Model* modelTest = rManager.createR<Model>("Cat.obj");
-	
-	float vertices[] = {
-	   -.5f, -.5f, -.5f,  0.f, 0.f, 0.f,  0.f, 0.f,
-		.5f, -.5f, -.5f,  0.f, 0.f, 0.f,  1.f, 0.f,
-		.5f,  .5f, -.5f,  0.f, 0.f, 0.f,  1.f, 1.f,
-		.5f,  .5f, -.5f,  0.f, 0.f, 0.f,  1.f, 1.f,
-	   -.5f,  .5f, -.5f,  0.f, 0.f, 0.f,  0.f, 1.f,
-	   -.5f, -.5f, -.5f,  0.f, 0.f, 0.f,  0.f, 0.f,
-										  
-	   -.5f, -.5f,  .5f,  0.f, 0.f, 0.f,  0.f, 0.f,
-		.5f, -.5f,  .5f,  0.f, 0.f, 0.f,  1.f, 0.f,
-		.5f,  .5f,  .5f,  0.f, 0.f, 0.f,  1.f, 1.f,
-		.5f,  .5f,  .5f,  0.f, 0.f, 0.f,  1.f, 1.f,
-	   -.5f,  .5f,  .5f,  0.f, 0.f, 0.f,  0.f, 1.f,
-	   -.5f, -.5f,  .5f,  0.f, 0.f, 0.f,  0.f, 0.f,
-										  
-	   -.5f,  .5f,  .5f,  0.f, 0.f, 0.f,  1.f, 0.f,
-	   -.5f,  .5f, -.5f,  0.f, 0.f, 0.f,  1.f, 1.f,
-	   -.5f, -.5f, -.5f,  0.f, 0.f, 0.f,  0.f, 1.f,
-	   -.5f, -.5f, -.5f,  0.f, 0.f, 0.f,  0.f, 1.f,
-	   -.5f, -.5f,  .5f,  0.f, 0.f, 0.f,  0.f, 0.f,
-	   -.5f,  .5f,  .5f,  0.f, 0.f, 0.f,  1.f, 0.f,
-										  
-		.5f,  .5f,  .5f,  0.f, 0.f, 0.f,  1.f, 0.f,
-		.5f,  .5f, -.5f,  0.f, 0.f, 0.f,  1.f, 1.f,
-		.5f, -.5f, -.5f,  0.f, 0.f, 0.f,  0.f, 1.f,
-		.5f, -.5f, -.5f,  0.f, 0.f, 0.f,  0.f, 1.f,
-		.5f, -.5f,  .5f,  0.f, 0.f, 0.f,  0.f, 0.f,
-		.5f,  .5f,  .5f,  0.f, 0.f, 0.f,  1.f, 0.f,
-										  
-	   -.5f, -.5f, -.5f,  0.f, 0.f, 0.f,  0.f, 1.f,
-		.5f, -.5f, -.5f,  0.f, 0.f, 0.f,  1.f, 1.f,
-		.5f, -.5f,  .5f,  0.f, 0.f, 0.f,  1.f, 0.f,
-		.5f, -.5f,  .5f,  0.f, 0.f, 0.f,  1.f, 0.f,
-	   -.5f, -.5f,  .5f,  0.f, 0.f, 0.f,  0.f, 0.f,
-	   -.5f, -.5f, -.5f,  0.f, 0.f, 0.f,  0.f, 1.f,
-						  				  
-	   -.5f,  .5f, -.5f,  0.f, 0.f, 0.f,  0.f, 1.f,
-		.5f,  .5f, -.5f,  0.f, 0.f, 0.f,  1.f, 1.f,
-		.5f,  .5f,  .5f,  0.f, 0.f, 0.f,  1.f, 0.f,
-		.5f,  .5f,  .5f,  0.f, 0.f, 0.f,  1.f, 0.f,
-	   -.5f,  .5f,  .5f,  0.f, 0.f, 0.f,  0.f, 0.f,
-	   -.5f,  .5f, -.5f,  0.f, 0.f, 0.f,  0.f, 1.f
-	};
-	vec3 cubePositions[] = {
-		vec3(0.f,  0.f,  0.f),
-		vec3(2.f,  5.f, -15.f),
-		vec3(-1.5f, -2.2f, -2.5f),
-		vec3(-3.8f, -2.f, -12.3f),
-		vec3(2.4f, -.4f, -3.5f),
-		vec3(-1.7f,  3.f, -7.5f),
-		vec3(1.3f, -2.f, -2.5f),
-		vec3(1.5f,  2.f, -2.5f),
-		vec3(1.5f,  .2f, -1.5f),
-		vec3(-1.3f,  1.f, -1.5f)
-	};
-	/*
-	float vertices[] = {
-		// positions          // colors           // texture coords
-		 0.5f,  0.5f, 0.0f,   1.0f, 0.0f, 0.0f,   1.0f, 1.0f, // top right
-		 0.5f, -0.5f, 0.0f,   0.0f, 1.0f, 0.0f,   1.0f, 0.0f, // bottom right
-		-0.5f, -0.5f, 0.0f,   0.0f, 0.0f, 1.0f,   0.0f, 0.0f, // bottom left
-		-0.5f,  0.5f, 0.0f,   1.0f, 1.0f, 0.0f,   0.0f, 1.0f  // top left
-	};
-	unsigned int indices[] = {
-		0, 1, 3,   // first triangle
-		1, 2, 3,   // second triangle
-	};*/
-
-	unsigned int VBO, VAO, EBO;
-	glGenVertexArrays(1, &VAO);
-	glGenBuffers(1, &VBO);
-	//glGenBuffers(1, &EBO);
-
-	glBindVertexArray(VAO);
-	glBindBuffer(GL_ARRAY_BUFFER, VBO);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
-
-	//glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
-	//glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
-
-	// position attribute
-	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)0);
-	glEnableVertexAttribArray(0);
-	// color attribute
-	glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)(3 * sizeof(float)));
-	glEnableVertexAttribArray(1);
-	// texture attribute
-	glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)(6 * sizeof(float)));
-	glEnableVertexAttribArray(2);
 
 	// Load Shaders
 	Shader* testShader = rManager.createR<Shader>("testShader");
 	//testShader->setVertexS(rManager.findPath("test2"), true);
 
 	// Load Textures
-	Texture* wallTex = rManager.createR<Texture>("wall.jpg");
-	Texture* smileyTex = rManager.createR<Texture>("awesomeface.png");
+	//Texture* wallTex = rManager.createR<Texture>("wall.jpg");
+	//Texture* smileyTex = rManager.createR<Texture>("awesomeface.png");
+	Texture* vikingTex = rManager.createR<Texture>("viking.png");
 
 	testShader->use();
 	testShader->setInt("texture1", 0);
-	testShader->setInt("texture2", 1);
+	//testShader->setInt("texture2", 1);
 
 	// Main loop
 	while (!glfwWindowShouldClose(app->window))
@@ -130,48 +41,31 @@ int main()
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 		// bind textures on corresponding texture units
-		wallTex->use(GL_TEXTURE0);
-		smileyTex->use(GL_TEXTURE1);
+		//wallTex->use(GL_TEXTURE0);
+		//smileyTex->use(GL_TEXTURE1);
+		vikingTex->use(GL_TEXTURE0);
 
 		// Activate Shaders
 		testShader->use();
 
-		//const float radius = 10.0f;
-		//float camX = sin(glfwGetTime()) * radius;
-		//float camZ = cos(glfwGetTime()) * radius;
-		//cam.setPosition({ camX, 0.f, camZ });
-
 		mat4 VP = cam.getPerspectivematrix() * cam.getViewmatrix();
-
-		glBindVertexArray(VAO);
-		for (unsigned int i = 0; i < 10; i++)
-		{
-			mat4 model = mat::translate(cubePositions[i]);
-
-			float angle = 20.f * i;
-			model *= mat::rotate(angle, vec3(1.f, .3f, .5f));
-
-			mat4 MVP = VP * model;
-			testShader->setmat4("MVP", MVP);
-
-			glDrawArrays(GL_TRIANGLES, 0, 36);
-		}
+		mat4 model = mat::scale(vec3(2.f, 2.f, 2.f));
+		model *= mat::rotateZ(-90.f);
+		model *= mat::rotateY(-90.f);
+		testShader->setmat4("MVP", VP * model);
 
 		// Draw Obj
-		//modelTest->draw();
+		modelTest->draw();
 
 		// Check and call events && then swap the buffers
 		glfwPollEvents();
 		glfwSwapBuffers(app->window);
 	}
 	delete testShader;
-	delete wallTex;
-	delete smileyTex;
-	//delete modelTest;
-
-	glDeleteVertexArrays(1, &VAO);
-	glDeleteBuffers(1, &VBO);
-	//glDeleteBuffers(1, &EBO);
+	//delete wallTex;
+	//delete smileyTex;
+	delete modelTest;
+	delete vikingTex;
 
 	delete app;
 	return EXIT_SUCCESS;

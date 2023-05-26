@@ -1,10 +1,5 @@
 #include "../include/model.hpp"
 
-Model::~Model()
-{
-	delete buffer;
-}
-
 void Model::loadResource(fs::path filePath)
 {
 	DEBUG_LOG("loading %s", filePath.string().c_str());
@@ -45,7 +40,6 @@ void Model::loadResource(fs::path filePath)
 			getline(file, curLine);
 			while (curLine[curLine.length() - 1] == ' ')
 				curLine.resize(curLine.length() - 1);
-			//cout << curLine << "." << endl;
 
 			string i1 = curLine.substr(0, curLine.find(" ", 1)), i2, i3;
 
@@ -55,20 +49,19 @@ void Model::loadResource(fs::path filePath)
 			size_t i1i2Length = i1Length + i2.length() + 1;
 			i3 = curLine.substr(i1i2Length, curLine.find(" ", i1i2Length) - i1i2Length);
 
-			//cout << "i1 :" << i1 << "." << endl;
-			//cout << "i2 :" << i2 << "." << endl;
-			//cout << "i3 :" << i3 << "." << endl;
+			uint32_t ind1 = getIndice(i1);
+			uint32_t ind2 = getIndice(i2);
+			uint32_t ind3 = getIndice(i3);
 
-			createIndice(i1);
-			uint32_t ind2 = createIndice(i2);
-			uint32_t ind3 = createIndice(i3);
+			indices.push_back(ind1);
+			indices.push_back(ind2);
+			indices.push_back(ind3);
 
 			if (curLine.length() > i1.length() + i2.length() + i3.length() + 2/*= spaces*/) {
 				string i4 = curLine.substr(i1i2Length + i3.length() + 1, curLine.length());
-				indices.push_back(ind2);
+				indices.push_back(getIndice(i4));
 				indices.push_back(ind3);
-				createIndice(i4);
-				//cout << "i4 :" << i4 << "." << endl;
+				indices.push_back(ind1);
 			}
 		}
 		else
@@ -80,21 +73,6 @@ void Model::loadResource(fs::path filePath)
 		beginLine = "";
 	}
 
-	//cout << "Test obj file:" << endl;
-	//for (vec3 v : tmpVPos)
-	//    cout << "v: " << v.x << ", " << v.y << ", " << v.z << endl;
-	//for (vec3 v : tmpVNorm)
-	//    cout << "vn: " << v.x << ", " << v.y << ", " << v.z << endl;
-	//for (vec2 v : tmpVText)
-	//    cout << "vt: " << v.x << ", " << v.y << endl;
-
-	//cout << "Indices:" << endl;
-	//for (uint32_t i = 0; i < indices.size(); ++i) {
-	//	cout << indices[i] << ", ";
-	//	if (!((i + 1) % 3)) cout << '\n';
-	//}
-	//cout << endl;
-
 	tmpVPos.clear();
 	tmpVNorm.clear();
 	tmpVText.clear();
@@ -105,42 +83,35 @@ void Model::loadResource(fs::path filePath)
 void Model::draw()
 {
 	glBindVertexArray(buffer->VAO);
-	glBindBuffer(GL_ARRAY_BUFFER, buffer->VBO);
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, buffer->EBO);
-
 	glDrawElements(GL_TRIANGLES, (GLsizei)indices.size(), GL_UNSIGNED_INT, 0);
-
 	glBindVertexArray(0);
-	glBindBuffer(GL_ARRAY_BUFFER, 0);
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 }
 
-uint32_t Model::createIndice(string& line)
+uint32_t Model::getIndice(string& line)
 {
 	uint32_t pos = getPosString(line) - 1;
-	uint32_t tex = getTexString(line) - 1;
 	uint32_t nor = getNorString(line) - 1;
+	uint32_t tex = getTexString(line) - 1;
 
 	Vertex v;
-	v.Position = tmpVPos[pos];
-	v.TextureUV = tmpVText[tex];
-	v.Normal = tmpVNorm[nor];
+	v.position = tmpVPos[pos];
+	v.normal = tmpVNorm[nor];
+	v.textureUV = tmpVText[tex];
 
 	uint32_t ind = 0; bool found = false;
 	for (uint32_t i = 0; i < vertices.size(); ++i)
-		if (vertices[i].Position == v.Position &&
-			vertices[i].TextureUV == v.TextureUV &&
-			vertices[i].Normal == v.Normal) {
+		if (vertices[i].position == v.position &&
+			vertices[i].normal == v.normal &&
+			vertices[i].textureUV == v.textureUV) {
 			ind = i;
 			found = true;
 		}
 
 	if (!found) {
 		vertices.push_back(v);
-		ind = (uint32_t)vertices.size();
+		ind = (uint32_t)vertices.size() - 1;
 	}
 
-	indices.push_back(ind);
 	return ind;
 }
 
@@ -149,15 +120,15 @@ uint32_t Model::getPosString(string line)
 	return stoi(line.substr(0, line.find("/")));
 }
 
-uint32_t Model::getTexString(string line)
+uint32_t Model::getNorString(string line)
 {
+	line.erase(0, line.find("/") + 1);
 	line.erase(0, line.find("/") + 1);
 	return stoi(line.substr(0, line.find("/")));
 }
 
-uint32_t Model::getNorString(string line)
+uint32_t Model::getTexString(string line)
 {
-	line.erase(0, line.find("/") + 1);
 	line.erase(0, line.find("/") + 1);
 	return stoi(line);
 }

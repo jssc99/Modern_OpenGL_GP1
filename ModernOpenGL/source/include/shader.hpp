@@ -37,7 +37,6 @@ public:
 	void setvec4(const std::string& name, float x, float y, float z, float w) const;
 	void setmat3(const std::string& name, const mat3& mat) const;
 	void setmat4(const std::string& name, const mat4& mat) const;
-	//void setmat4(const std::string& name, const glm::mat4& mat) const;
 
 private:
 	unsigned int vertex = 0, fragment = 0;

@@ -79,12 +79,6 @@ mat4 mat::rotateZ(float angleDeg)
 
 mat4 mat::rotate(float angleDeg, vec3 v)
 {
-	//mat4 x = rotateX(angleDeg * axis.x);
-	//mat4 y = rotateY(angleDeg * axis.y);
-	//mat4 z = rotateZ(angleDeg * axis.z);
-	//return z * y * x;
-	//return x * y * z;
-
 	float a = calc::deg2Rad(angleDeg);
 	float c = cos(a), s = sin(a);
 
