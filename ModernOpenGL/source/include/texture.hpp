@@ -7,17 +7,19 @@
 
 #include "IResource.hpp"
 
-class Texture : public IResource
-{
-public:
-	Texture() {};
-	~Texture() {};
+namespace Resources {
+	class Texture : public IResource
+	{
+	public:
+		Texture() {};
+		~Texture() {};
 
-	void loadResource(fs::path filePath) override;
+		void loadResource(fs::path filePath) override;
 
-	void use(int GL_textureSlot);
-	void stopUse();
+		void use(int GL_textureSlot);
+		void stopUse();
 
-private:
-	int width = 0, height = 0, nrChannels = 0;
-};
+	private:
+		int width = 0, height = 0, nrChannels = 0;
+	};
+}

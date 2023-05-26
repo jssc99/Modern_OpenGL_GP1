@@ -5,15 +5,17 @@
 
 #include "debug.hpp"
 
-class IResource
-{
-public:
-	virtual void loadResource(fs::path filePath) = 0;
-	void loadFromPath()
+namespace Resources {
+	class IResource
 	{
-		if (path != "") loadResource(path);
-	};
+	public:
+		virtual void loadResource(fs::path filePath) = 0;
+		void loadFromPath()
+		{
+			if (path != "") loadResource(path);
+		};
 
-	unsigned int ID = 0;
-	fs::path path;
-};
+		unsigned int ID = 0;
+		fs::path path;
+	};
+}

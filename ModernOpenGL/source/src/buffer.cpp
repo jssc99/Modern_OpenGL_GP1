@@ -1,5 +1,7 @@
 #include "../include/buffer.hpp"
 
+using namespace Resources;
+
 Buffer::Buffer(vector<Vertex>& vertices, vector<uint32_t>& indices)
 {
 	glGenVertexArrays(1, &VAO);

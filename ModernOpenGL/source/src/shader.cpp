@@ -1,6 +1,8 @@
 #include "../include/shader.hpp"
 #include "../include/debug.hpp"
 
+using namespace Resources;
+
 Shader::~Shader() {
 	glDeleteProgram(ID);
 }

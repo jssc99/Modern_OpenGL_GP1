@@ -5,10 +5,15 @@
 #include "../include/model.hpp"
 #include "../include/application.hpp"
 #include "../include/camera.hpp"
+#include "../include/light.hpp"
+
+using namespace Core;
+using namespace LowRenderer;
+using namespace Resources;
 
 int main()
 {
-	static Log log;
+	static Debug::Log log;
 	Application* app = new Application();
 	Camera cam(app->width, app->height);
 	ResourceManager rManager;
@@ -40,7 +45,7 @@ int main()
 		glClearColor(0.f, .6f, .6f, 1.f);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-		// bind textures on corresponding texture units
+		// Bind textures
 		//wallTex->use(GL_TEXTURE0);
 		//smileyTex->use(GL_TEXTURE1);
 		vikingTex->use(GL_TEXTURE0);
@@ -48,10 +53,11 @@ int main()
 		// Activate Shaders
 		testShader->use();
 
+		// Create MVP matrix
 		mat4 VP = cam.getPerspectivematrix() * cam.getViewmatrix();
-		mat4 model = mat::scale(vec3(2.f, 2.f, 2.f));
-		model *= mat::rotateZ(-90.f);
-		model *= mat::rotateY(-90.f);
+		mat4 model = Maths::mat::scale(vec3(2.f, 2.f, 2.f));
+		model *= Maths::mat::rotateZ(-90.f);
+		model *= Maths::mat::rotateY(-90.f);
 		testShader->setmat4("MVP", VP * model);
 
 		// Draw Obj

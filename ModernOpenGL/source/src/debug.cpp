@@ -1,5 +1,7 @@
 #include "../include/debug.hpp"
 
+using namespace Core::Debug;
+
 void Log::openFile(fs::path const& filePath, bool overrideFileWhenWriting)
 {
 	if (logFile.is_open())

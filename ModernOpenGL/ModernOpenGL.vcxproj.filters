@@ -124,5 +124,8 @@
     <ClInclude Include="source\include\basicMath.hpp">
       <Filter>Core\Math</Filter>
     </ClInclude>
+    <ClInclude Include="source\include\light.hpp">
+      <Filter>LowRenderer\Light</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

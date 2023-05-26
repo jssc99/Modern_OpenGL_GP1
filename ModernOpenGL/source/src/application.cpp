@@ -4,6 +4,8 @@ void framebufferSizeCallback(GLFWwindow* window, int width, int height);
 void mouseCallback(GLFWwindow* window, double xPosIn, double yPosIn);
 void scrollCallback(GLFWwindow* window, double xOffset, double yOffset);
 
+using namespace Core;
+
 MouseInput mouseIn;
 
 Application::Application(int width, int height)
@@ -50,7 +52,7 @@ Application::~Application()
 	glfwTerminate();
 }
 
-void Application::processInput(Camera *cam)
+void Application::processInput(LowRenderer::Camera *cam)
 {
 	float currentFrame = (float)glfwGetTime();
 	deltaTime = currentFrame - lastFrame;

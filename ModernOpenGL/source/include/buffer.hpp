@@ -5,13 +5,22 @@
 #include <vector>
 using std::vector;
 
-#include "model.hpp"
+#include "basicmath.hpp"
 
-class Buffer
-{
-public:
-	Buffer(vector<Vertex>& vertices, vector<uint32_t>& indices);
-	~Buffer();
+namespace Resources {
+	struct Vertex
+	{
+		vec3 position;
+		vec3 normal;
+		vec2 textureUV;
+	};
 
-	unsigned int VAO, VBO, EBO;
-};
+	class Buffer
+	{
+	public:
+		Buffer(vector<Vertex>& vertices, vector<uint32_t>& indices);
+		~Buffer();
+
+		unsigned int VAO, VBO, EBO;
+	};
+}

@@ -1,5 +1,7 @@
 #include "../include/model.hpp"
 
+using namespace Resources;
+
 void Model::loadResource(fs::path filePath)
 {
 	DEBUG_LOG("loading %s", filePath.string().c_str());

@@ -1,14 +1,14 @@
 #include "../include/camera.hpp"
 #include "../include/debug.hpp"
 
+using namespace LowRenderer;
+using namespace Core::Maths;
+
 Camera::Camera(int width, int height)
 {
 	aspect = (float)width / height;
 	updateCameraVectors();
 }
-
-Camera::~Camera()
-{}
 
 void Camera::processInput(GLFWwindow* window, float deltaTime)
 {
@@ -17,9 +17,9 @@ void Camera::processInput(GLFWwindow* window, float deltaTime)
 	if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS)
 		position -= speed * deltaTime * front;
 	if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS)
-		position -= calc::norm(calc::cross(front, up)) * speed * deltaTime;
+		position -= normalize(cross(front, up)) * speed * deltaTime;
 	if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
-		position += calc::norm(calc::cross(front, up)) * speed * deltaTime;
+		position += normalize(cross(front, up)) * speed * deltaTime;
 }
 
 void Camera::processMouse(float xOffset, float yOffset)
@@ -49,13 +49,13 @@ void Camera::setPosition(vec3 newPos) {
 
 mat4 Camera::getViewmatrix()
 {
-	vec3 forward = calc::norm(-front);
-	vec3 right = calc::norm(calc::cross(calc::norm(up), forward));
-	vec3 newUp = calc::norm(calc::cross(forward, right));
+	vec3 forward = normalize(-front);
+	vec3 right = normalize(cross(normalize(up), forward));
+	vec3 newUp = normalize(cross(forward, right));
 
-	float tR = calc::dot(position, right);
-	float tU = calc::dot(position, newUp);
-	float tF = calc::dot(position, forward);
+	float tR = dot(position, right);
+	float tU = dot(position, newUp);
+	float tF = dot(position, forward);
 	
 	mat4 view = {
 		right.x,   right.y,   right.z,   -tR,
@@ -72,7 +72,7 @@ mat4 Camera::getPerspectivematrix()
 	mat4 mat = mat::identity4(0.f);
 
 	float range = far_ - near_;
-	float cotHalfFov = 1.f / tanf(calc::deg2Rad(zoom)/ 2.f);
+	float cotHalfFov = 1.f / tanf(deg2Rad(zoom)/ 2.f);
 
 	mat.e[0] = cotHalfFov / aspect;
 	mat.v[1].y = cotHalfFov;
@@ -86,11 +86,11 @@ mat4 Camera::getPerspectivematrix()
 
 void Camera::updateCameraVectors()
 {
-	front.x = cos(calc::deg2Rad(yaw)) * cos(calc::deg2Rad(pitch));
-	front.y = sin(calc::deg2Rad(pitch));
-	front.z = sin(calc::deg2Rad(yaw)) * cos(calc::deg2Rad(pitch));
-	front = calc::norm(front);
+	front.x = cos(deg2Rad(yaw)) * cos(deg2Rad(pitch));
+	front.y = sin(deg2Rad(pitch));
+	front.z = sin(deg2Rad(yaw)) * cos(deg2Rad(pitch));
+	front = normalize(front);
 
-	right = calc::norm(calc::cross(front, worldUp));
-	up = calc::norm(calc::cross(right, front));
+	right = normalize(cross(front, worldUp));
+	up = normalize(cross(right, front));
 }

@@ -1,5 +1,8 @@
 #include "../include/basicmath.hpp"
 
+using namespace Core;
+using namespace Core::Maths;
+
 mat4 mat::translate(float x, float y, float z)
 {
 	mat4 mat = identity4();
@@ -36,7 +39,7 @@ mat4 mat::rotateX(float angleDeg)
 {
 	mat4 mat = identity4();
 
-	float angleRad = angleDeg * (calc::TAU / 360.f);
+	float angleRad = deg2Rad(angleDeg);
 	float c = cosf(angleRad), s = sinf(angleRad);
 
 	mat.v[1].y = c;
@@ -51,7 +54,7 @@ mat4 mat::rotateY(float angleDeg)
 {
 	mat4 mat = identity4();
 
-	float angleRad = angleDeg * (calc::TAU / 360.f);
+	float angleRad = deg2Rad(angleDeg);
 	float c = cosf(angleRad), s = sinf(angleRad);
 
 	mat.v[0].x = c;
@@ -66,7 +69,7 @@ mat4 mat::rotateZ(float angleDeg)
 {
 	mat4 mat = identity4();
 
-	float angleRad = angleDeg * (calc::TAU / 360.f);
+	float angleRad = deg2Rad(angleDeg);
 	float c = cosf(angleRad), s = sinf(angleRad);
 
 	mat.v[0].x = c;
@@ -79,21 +82,21 @@ mat4 mat::rotateZ(float angleDeg)
 
 mat4 mat::rotate(float angleDeg, vec3 v)
 {
-	float a = calc::deg2Rad(angleDeg);
+	float a = deg2Rad(angleDeg);
 	float c = cos(a), s = sin(a);
 
-	vec3 axis(calc::norm(v));
+	vec3 axis(normalize(v));
 	vec3 cosAx((1.f - c) * axis);
 
 	mat4 mat = mat::identity4();
 	mat.v[0].x = c + cosAx.x * axis.x;
 	mat.v[1].x = cosAx.x * axis.y + s * axis.z;
 	mat.v[2].x = cosAx.x * axis.z - s * axis.y;
-	   
+
 	mat.v[0].y = cosAx.y * axis.x - s * axis.z;
 	mat.v[1].y = c + cosAx.y * axis.y;
 	mat.v[2].y = cosAx.y * axis.z + s * axis.x;
-	  
+
 	mat.v[0].z = cosAx.z * axis.x + s * axis.y;
 	mat.v[1].z = cosAx.z * axis.y - s * axis.x;
 	mat.v[2].z = c + cosAx.z * axis.z;

@@ -51,6 +51,7 @@ union mat4
 };
 
 // All Operators
+#pragma region vecOperator
 inline bool operator==(const vec2& u, const vec2& v) {
 	return (u.x == v.x && u.y == v.y);
 }
@@ -188,7 +189,114 @@ inline vec3 operator/=(vec3& v, const vec3& a) {
 inline vec4 operator/=(vec4& v, const vec4& a) {
 	return v = v / a;
 }
+#pragma endregion
+#pragma region matOperator
+inline mat3 operator*(const mat3& a, const mat3& b)
+{
+	mat3 r = {
+			0.f, 0.f, 0.f,
+			0.f, 0.f, 0.f,
+			0.f, 0.f, 0.f,
+	};
 
+	for (int row = 0; row < 3; row++)
+		for (int col = 0; col < 3; col++)
+			for (int k = 0; k < 3; k++)
+				r.e[row * 3 + col] += a.e[row * 3 + k] * b.e[k * 3 + col];
+
+	return r;
+}
+
+inline mat4 operator*(const mat4& a, const mat4& b)
+{
+	mat4 r = {
+			0.f, 0.f, 0.f, 0.f,
+			0.f, 0.f, 0.f, 0.f,
+			0.f, 0.f, 0.f, 0.f,
+			0.f, 0.f, 0.f, 0.f,
+	};
+
+	for (int row = 0; row < 4; row++)
+		for (int col = 0; col < 4; col++)
+			for (int k = 0; k < 4; k++)
+				r.e[row * 4 + col] += a.e[row * 4 + k] * b.e[k * 4 + col];
+
+	return r;
+}
+
+inline mat3 operator*=(mat3& a, const mat3& b)
+{
+	return a = a * b;
+}
+
+inline mat4 operator*=(mat4& a, const mat4& b)
+{
+	return a = a * b;
+}
+
+inline mat3 operator*(const float& a, const mat3& b)
+{
+	mat3 r = b;
+
+	for (int all = 0; all < 3 * 3; all++)
+		r.e[all] *= a;
+
+	return r;
+}
+
+inline mat4 operator*(const float& a, const mat4& b)
+{
+	mat4 r = b;
+
+	for (int all = 0; all < 4 * 4; all++)
+		r.e[all] *= a;
+
+	return r;
+}
+
+inline mat3 operator+(const mat3& a, const mat3& b)
+{
+	mat3 r;
+
+	for (int all = 0; all < 3 * 3; all++)
+		r.e[all] = a.e[all] + b.e[all];
+
+	return r;
+}
+
+inline mat4 operator+(const mat4& a, const mat4& b)
+{
+	mat4 r;
+
+	for (int all = 0; all < 4 * 4; all++)
+		r.e[all] = a.e[all] + b.e[all];
+
+	return r;
+}
+
+inline vec3 operator*(const mat3& m, const vec3& v)
+{
+	vec3 r = { 0.f,0.f,0.f };
+
+	for (int row = 0; row < 3; row++)
+		for (int col = 0; col < 3; col++)
+			r.e[row] += v.e[col] * m.e[row * 3 + col];
+
+	return r;
+}
+
+inline vec4 operator*(const mat4& m, const vec4& v)
+{
+	vec4 r = { 0.f, 0.f, 0.f, 0.f };
+
+	for (int row = 0; row < 4; row++)
+		for (int col = 0; col < 4; col++)
+			r.e[row] += v.e[col] * m.e[row * 4 + col];
+
+	return r;
+}
+#pragma endregion
+#pragma region stdOutput
 inline std::ostream& operator<<(std::ostream& os, const mat4& mat)
 {
 	for (int i = 0; i < 4; i++) {
@@ -229,3 +337,4 @@ inline std::ostream& operator<<(std::ostream& os, const vec2& mat)
 		os << mat.e[i] << " | ";
 	return os;
 }
+#pragma endregion
