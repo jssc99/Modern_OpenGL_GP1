@@ -10,10 +10,6 @@ namespace Resources {
 	{
 	public:
 		virtual void loadResource(fs::path filePath) = 0;
-		void loadFromPath()
-		{
-			if (path != "") loadResource(path);
-		};
 
 		unsigned int ID = 0;
 		fs::path path;

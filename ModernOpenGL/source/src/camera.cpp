@@ -43,11 +43,7 @@ void Camera::ProcessScroll(float yOffset)
 	if (zoom > 45.0f) zoom = 45.0f;
 }
 
-void Camera::setPosition(vec3 newPos) {
-	position = newPos;
-}
-
-mat4 Camera::getViewmatrix()
+mat4 Camera::getView()
 {
 	vec3 forward = normalize(-front);
 	vec3 right = normalize(cross(normalize(up), forward));
@@ -67,7 +63,7 @@ mat4 Camera::getViewmatrix()
 	return view;
 }
 
-mat4 Camera::getPerspectivematrix()
+mat4 Camera::getPerspective()
 {
 	mat4 mat = mat::identity4(0.f);
 

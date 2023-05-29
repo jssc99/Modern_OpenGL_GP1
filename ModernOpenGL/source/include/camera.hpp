@@ -20,16 +20,15 @@ namespace LowRenderer
 		void processMouse(float xoffset, float yoffset);
 		void ProcessScroll(float yoffset);
 
-		void setPosition(vec3 newPos);
+		mat4 getView();
+		mat4 getPerspective();
 
-		mat4 getViewmatrix();
-		mat4 getPerspectivematrix();
+		float speed = 8.f;
 
-		float speed = 6.f;
-
-	private:
 		vec3 position = { 0.f,0.f,5.f };
 		vec3 front = { 0.f,0.f,-1.f };
+
+	private:
 		vec3 up = { 0.f,1.f,0.f };
 		vec3 right, worldUp = up;
 

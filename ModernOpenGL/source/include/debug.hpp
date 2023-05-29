@@ -12,6 +12,7 @@ using std::cin; using std::cout;
 using std::endl; using std::string;
 
 #define __FILENAME__ (strrchr(__FILE__, '\\') ? strrchr(__FILE__, '\\') + 1 : __FILE__)
+// IMPORTANT : strings need to be converted to c_str
 #define DEBUG_LOG(txt, ...) Core::Debug::DBLOut(__FILENAME__, __LINE__, txt, __VA_ARGS__);
 
 namespace fs = std::filesystem;

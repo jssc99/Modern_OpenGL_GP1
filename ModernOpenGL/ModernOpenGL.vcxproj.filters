@@ -89,6 +89,12 @@
     <None Include="source\shaders\testShader.vert">
       <Filter>Resources\Shader</Filter>
     </None>
+    <None Include="source\shaders\testLight.frag">
+      <Filter>Resources\Shader</Filter>
+    </None>
+    <None Include="source\shaders\testLight.vert">
+      <Filter>Resources\Shader</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="source\include\resourceManager.hpp">

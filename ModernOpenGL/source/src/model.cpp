@@ -9,13 +9,10 @@ void Model::loadResource(fs::path filePath)
 	ASSERT(file.is_open());
 	path = filePath;
 
-	string curLine, beginLine;
-
 	while (!file.eof())
 	{
-		string prevLine = beginLine;
+		string curLine, beginLine;
 		file >> beginLine;
-
 		if (beginLine == "v")
 		{
 			vec3 v;
@@ -72,12 +69,12 @@ void Model::loadResource(fs::path filePath)
 			curLine = beginLine + curLine;
 			//DEBUG_LOG("line not used while loading %s : %s", filePath.string().c_str(), curLine.c_str())
 		}
-		beginLine = "";
 	}
 
 	tmpVPos.clear();
 	tmpVNorm.clear();
 	tmpVText.clear();
+	DEBUG_LOG("%s : model loaded", filePath.string().c_str());
 
 	buffer = new Buffer(vertices, indices);
 }
@@ -91,30 +88,22 @@ void Model::draw()
 
 uint32_t Model::getIndice(string& line)
 {
-	uint32_t pos = getPosString(line) - 1;
-	uint32_t nor = getNorString(line) - 1;
-	uint32_t tex = getTexString(line) - 1;
+	Vertex v = {
+		tmpVPos[getPosString(line) - 1],
+		tmpVNorm[getNorString(line) - 1],
+		tmpVText[getTexString(line) - 1]
+	};
 
-	Vertex v;
-	v.position = tmpVPos[pos];
-	v.normal = tmpVNorm[nor];
-	v.textureUV = tmpVText[tex];
-
-	uint32_t ind = 0; bool found = false;
 	for (uint32_t i = 0; i < vertices.size(); ++i)
 		if (vertices[i].position == v.position &&
 			vertices[i].normal == v.normal &&
-			vertices[i].textureUV == v.textureUV) {
-			ind = i;
-			found = true;
-		}
-
-	if (!found) {
+			vertices[i].textureUV == v.textureUV)
+			return i;
+	//  else
+	{
 		vertices.push_back(v);
-		ind = (uint32_t)vertices.size() - 1;
+		return (uint32_t)vertices.size() - 1;
 	}
-
-	return ind;
 }
 
 uint32_t Model::getPosString(string line)

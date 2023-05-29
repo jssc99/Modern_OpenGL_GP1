@@ -10,7 +10,6 @@
 #include <fstream>
 #include <sstream>
 #include <iostream>
-#include <glm/glm.hpp>
 
 namespace Resources {
 	class Shader : public IResource
@@ -30,14 +29,14 @@ namespace Resources {
 		void setBool(const string& name, bool value) const;
 		void setInt(const string& name, int value) const;
 		void setFloat(const string& name, float value) const;
-		void setvec2(const std::string& name, const vec2& value) const;
-		void setvec2(const std::string& name, float x, float y) const;
-		void setvec3(const std::string& name, const vec3& value) const;
-		void setvec3(const std::string& name, float x, float y, float z) const;
-		void setvec4(const std::string& name, const mat4& value) const;
-		void setvec4(const std::string& name, float x, float y, float z, float w) const;
-		void setmat3(const std::string& name, const mat3& mat) const;
-		void setmat4(const std::string& name, const mat4& mat) const;
+		void setVec2(const std::string& name, const vec2& value) const;
+		void setVec2(const std::string& name, float x, float y) const;
+		void setVec3(const std::string& name, const vec3& value) const;
+		void setVec3(const std::string& name, float x, float y, float z) const;
+		void setVec4(const std::string& name, const mat4& value) const;
+		void setVec4(const std::string& name, float x, float y, float z, float w) const;
+		void setMat3(const std::string& name, const mat3& mat) const;
+		void setMat4(const std::string& name, const mat4& mat) const;
 
 	private:
 		unsigned int vertex = 0, fragment = 0;

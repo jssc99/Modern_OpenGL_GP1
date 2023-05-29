@@ -13,6 +13,8 @@ union vec2
 union vec3
 {
 	vec3() = default;
+	vec3(float x) :
+		x(x), y(x), z(x) {};
 	vec3(float x, float y, float z) :
 		x(x), y(y), z(z) {};
 	vec3(vec2 v, float z) : x(v.x), y(v.y), z(z) {};
@@ -26,6 +28,8 @@ union vec3
 union vec4
 {
 	vec4() = default;
+	vec4(float x) :
+		x(x), y(x), z(x), w(x) {};
 	vec4(vec3 v, float w) :
 		x(v.x), y(v.y), z(v.z), w(w) {};
 	vec4(float x, float y, float z, float w) :
