@@ -140,6 +140,7 @@
     <ClCompile Include="source\src\camera.cpp" />
     <ClCompile Include="source\src\debug.cpp" />
     <ClCompile Include="source\src\main.cpp" />
+    <ClCompile Include="source\src\mesh.cpp" />
     <ClCompile Include="source\src\model.cpp" />
     <ClCompile Include="source\src\shader.cpp" />
     <ClCompile Include="source\src\texture.cpp" />
@@ -154,6 +155,7 @@
     <ClInclude Include="source\include\application.hpp" />
     <ClInclude Include="source\include\basicMath.hpp" />
     <ClInclude Include="source\include\light.hpp" />
+    <ClInclude Include="source\include\mesh.hpp" />
     <ClInclude Include="source\include\types.hpp" />
     <ClInclude Include="source\include\buffer.hpp" />
     <ClInclude Include="source\include\camera.hpp" />

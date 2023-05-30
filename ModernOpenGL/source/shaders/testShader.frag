@@ -57,7 +57,7 @@ uniform unsigned int nbDirLight = 1;
 uniform unsigned int nbPointLight = 1;
 uniform unsigned int nbSpotLight = 1;
 
-#define maxNbLight = 5
+#define maxNbLight = 10;
 
 uniform DirLight dirLight[5];
 uniform PointLight pointLights[5];

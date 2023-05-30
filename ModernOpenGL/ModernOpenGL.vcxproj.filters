@@ -81,6 +81,9 @@
     <ClCompile Include="source\src\basicMath.cpp">
       <Filter>Core\Math</Filter>
     </ClCompile>
+    <ClCompile Include="source\src\mesh.cpp">
+      <Filter>LowRenderer\Mesh</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="source\shaders\testShader.frag">
@@ -132,6 +135,9 @@
     </ClInclude>
     <ClInclude Include="source\include\light.hpp">
       <Filter>LowRenderer\Light</Filter>
+    </ClInclude>
+    <ClInclude Include="source\include\mesh.hpp">
+      <Filter>LowRenderer\Mesh</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

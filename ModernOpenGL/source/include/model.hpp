@@ -5,34 +5,31 @@ using std::vector;
 
 #include "buffer.hpp"
 #include "IResource.hpp"
+#include "texture.hpp"
+#include "mesh.hpp"
 
 namespace Resources {
-	class Model : public IResource
+	class Model
 	{
 	public:
 		Model() {};
 		~Model() {
 			delete buffer;
+			// texture and mesh should be delete by ResourceManager
 		};
 
-		void loadResource(fs::path filePath) override;
+		void makeModel(Texture* tex, LowRenderer::Mesh* mesh);
+		//void makeModel(vector<Texture*> texs, vector<LowRenderer::Mesh*> meshs);
 
-		void draw();
+		void draw(int GL_Tex = 0);
 
 	private:
-		vector<Vertex> vertices;
-		vector<uint32_t> indices;
-
-		vector<vec3> tmpVPos;
-		vector<vec3> tmpVNorm;
-		vector<vec2> tmpVText;
-
-		uint32_t getIndice(string& line);
-
-		uint32_t getPosString(string line);
-		uint32_t getNorString(string line);
-		uint32_t getTexString(string line);
-
+		Texture* texture = nullptr;
+		LowRenderer::Mesh* mesh = nullptr;
 		Buffer* buffer = nullptr;
+
+		//vector<Texture*> textures;
+		//vector<LowRenderer::Mesh*> meshes;
+		//vector<Buffer*> buffers;
 	};
 }

@@ -44,7 +44,7 @@ Application::Application(int width, int height)
 		exit(EXIT_FAILURE);
 	}
 
-	glEnable(GL_DEPTH_TEST);
+	glEnable(GL_DEPTH_TEST); 
 }
 
 Application::~Application()
