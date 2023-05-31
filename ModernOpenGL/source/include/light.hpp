@@ -4,12 +4,17 @@
 
 namespace LowRenderer
 {
-    struct DirLight {
-        vec3 direction;
-
+    struct BaseLight
+    {
         vec3 ambient;
         vec3 diffuse;
         vec3 specular;
+    };
+
+    struct DirLight {
+        vec3 direction;
+
+        BaseLight base;
     };
 
     struct PointLight {
@@ -19,9 +24,7 @@ namespace LowRenderer
         float linear;
         float quadratic;
 
-        vec3 ambient;
-        vec3 diffuse;
-        vec3 specular;
+        BaseLight base;
     };
 
     struct SpotLight {
@@ -34,17 +37,31 @@ namespace LowRenderer
         float linear;
         float quadratic;
 
-        vec3 ambient;
-        vec3 diffuse;
-        vec3 specular;
+        BaseLight base;
     };
 
-    class Light
-    {
-    public:
-        Light();
-        ~Light();
+    inline BaseLight makeBaseLight(vec3 amb, vec3 dif, vec3 spe) {
+        return { amb, dif, spe };
+    }
 
-    private:
-    };
+    inline DirLight makeDirLight(vec3 pos, BaseLight baseLight) {
+        return { pos, baseLight };
+    }
+    inline DirLight makeDirLight(vec3 pos, vec3 amb, vec3 dif, vec3 spe) {
+        return { pos, amb, dif, spe };
+    }
+
+    inline PointLight makePointLight(vec3 pos, float constant, float linear, float quadratic, BaseLight baseLight) {
+        return { pos, constant, linear, quadratic, baseLight };
+    }
+    inline PointLight makePointLight(vec3 pos, float constant, float linear, float quadratic, vec3 amb, vec3 dif, vec3 spe) {
+        return { pos, constant, linear, quadratic, amb, dif, spe };
+    }
+
+    inline SpotLight makeSpotLight(vec3 pos, vec3 dir, float cutOff, float outerCutOff, float constant, float linear, float quadratic, BaseLight baseLight) {
+        return { pos, dir, cutOff, outerCutOff, constant, linear, quadratic, baseLight };
+    }
+    inline SpotLight makeSpotLight(vec3 pos, vec3 dir, float cutOff, float outerCutOff, float constant, float linear, float quadratic, vec3 amb, vec3 dif, vec3 spe) {
+        return { pos, dir, cutOff, outerCutOff, constant, linear, quadratic, amb, dif, spe };
+    }
 }

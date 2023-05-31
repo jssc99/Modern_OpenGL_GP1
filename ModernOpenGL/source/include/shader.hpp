@@ -5,6 +5,7 @@
 #include "debug.hpp"
 #include "IResource.hpp"
 #include "basicmath.hpp"
+#include "light.hpp"
 
 #include <string>
 #include <fstream>
@@ -38,9 +39,14 @@ namespace Resources {
 		void setMat3(const std::string& name, const mat3& mat) const;
 		void setMat4(const std::string& name, const mat4& mat) const;
 
+		void setDirLight(const LowRenderer::DirLight& light, const unsigned int& idLight) const;
+		void setPointLight(const LowRenderer::PointLight& light, const unsigned int& idLight) const;
+		void setSpotLight(const LowRenderer::SpotLight& light, const unsigned int& idLight) const;
+
 	private:
 		unsigned int vertex = 0, fragment = 0;
 
+		void setBaseLight(const string& name, const LowRenderer::BaseLight& light) const;
 		bool checkCompileErrors(unsigned int& shader, string type);
 	};
 }

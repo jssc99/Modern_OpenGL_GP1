@@ -57,11 +57,11 @@ uniform unsigned int nbDirLight = 1;
 uniform unsigned int nbPointLight = 1;
 uniform unsigned int nbSpotLight = 1;
 
-#define maxNbLight = 10;
+#define MAXLIGHTS 10
 
-uniform DirLight dirLight[5];
-uniform PointLight pointLights[5];
-uniform SpotLight spotLight[5];
+uniform DirLight dirLights[MAXLIGHTS];
+uniform PointLight pointLights[MAXLIGHTS];
+uniform SpotLight spotLights[MAXLIGHTS];
 
 vec3 getDirLight(DirLight light, vec3 normal, vec3 viewDir);
 vec3 getPointLight(PointLight light, vec3 normal, vec3 fragPos, vec3 viewDir);
@@ -75,13 +75,13 @@ void main()
     vec3 result = vec3(0.f, 0.f, 0.f);
     
     for (unsigned int i = 0; i < nbDirLight; ++i)
-        result += getDirLight(dirLight[i], norm, viewDir);
+        result += getDirLight(dirLights[i], norm, viewDir);
 
     for (unsigned int i = 0; i < nbPointLight; ++i)
         result += getPointLight(pointLights[i], norm, fragPos, viewDir);  
         
     for (unsigned int i = 0; i < nbSpotLight; ++i)
-        result += getSpotLight(spotLight[i], norm, fragPos, viewDir);    
+        result += getSpotLight(spotLights[i], norm, fragPos, viewDir);    
 
     fragColor = vec4(result, 1.f);
 }

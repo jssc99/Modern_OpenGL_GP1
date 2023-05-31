@@ -21,7 +21,10 @@ int main()
 	//Mesh* meshTest = rManager.createR<Mesh>("Tree.obj");
 	//Mesh* meshTest = rManager.createR<Mesh>("Viking.obj");
 	//Mesh* meshTest = rManager.createR<Mesh>("Cat.obj");
-	Mesh* meshTest = rManager.createR<Mesh>("Cottage.obj");
+	//Mesh* meshTest = rManager.createR<Mesh>("WeirdCat.obj");
+	//Mesh* meshTest = rManager.createR<Mesh>("Cottage.obj");
+	//Mesh* meshTest = rManager.createR<Mesh>("Bench.obj");
+	Mesh* meshTest = rManager.createR<Mesh>("Horse.obj");
 
 	// Load Shaders
 	Shader* testShader = rManager.createR<Shader>("testShader");
@@ -142,27 +145,16 @@ int main()
 
 		testShader->setInt("nbDirLight", 0);
 		// point light
-		testShader->setVec3("pointLights[0].position", lightPos);
-		testShader->setVec3("pointLights[0].ambient", .05f, .05f, .05f);
-		testShader->setVec3("pointLights[0].diffuse", .8f, .8f, .8f);
-		testShader->setVec3("pointLights[0].specular", 1.f, 1.f, 1.f);
-		testShader->setFloat("pointLights[0].constant", 1.f);
-		testShader->setFloat("pointLights[0].linear", .09f);
-		testShader->setFloat("pointLights[0].quadratic", .032f);
+		testShader->setPointLight(makePointLight(lightPos, 1.f, .09f, .032f,
+			vec3(.05f), vec3(.8f), vec3(1.f)), 0);
+
 		// spotLight
-		testShader->setVec3("spotLight[0].position", cam.position);
-		testShader->setVec3("spotLight[0].direction", cam.front);
-		testShader->setVec3("spotLight[0].ambient", 0.f, 0.f, 0.f);
-		testShader->setVec3("spotLight[0].diffuse", 1.f, 1.f, 1.f);
-		testShader->setVec3("spotLight[0].specular", 1.f, 1.f, 1.f);
-		testShader->setFloat("spotLight[0].constant", 1.f);
-		testShader->setFloat("spotLight[0].linear", .09f);
-		testShader->setFloat("spotLight[0].quadratic", .032f);
-		testShader->setFloat("spotLight[0].cutOff", cos(Maths::deg2Rad(12.5f)));
-		testShader->setFloat("spotLight[0].outerCutOff", cos(Maths::deg2Rad(15.f)));
+		testShader->setSpotLight(makeSpotLight(cam.position, cam.front,
+			cos(Maths::deg2Rad(12.5f)), cos(Maths::deg2Rad(15.f)),
+			1.f, .09f, .032f, vec3(0.f), vec3(1.f), vec3(1.f)), 0);
 
 		// Create MVP matrix
-		mat4 model = Maths::mat::scale(vec3(.2f));
+		mat4 model = Maths::mat::scale(vec3(1.f));
 		//model *= Maths::mat::rotateZ(-90.f);
 		model *= Maths::mat::rotateY(-90.f);
 		testShader->setMat4("model", model);

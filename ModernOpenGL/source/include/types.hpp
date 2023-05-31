@@ -5,6 +5,12 @@
 
 union vec2
 {
+	vec2() = default;
+	vec2(float x) :
+		x(x), y(x) {};
+	vec2(float x, float y) :
+		x(x), y(y) {};
+
 	float e[2];
 	struct { float x, y; };
 	struct { float u, v; };

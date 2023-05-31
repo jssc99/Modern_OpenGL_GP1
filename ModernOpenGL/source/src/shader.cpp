@@ -158,6 +158,51 @@ void Shader::setMat4(const std::string& name, const mat4& mat) const {
 	glUniformMatrix4fv(glGetUniformLocation(ID, name.c_str()), 1, GL_FALSE, fliped.e);
 }
 
+void Shader::setBaseLight(const string& name, const LowRenderer::BaseLight& light) const
+{
+	this->setVec3(name + string("ambient"), light.ambient);
+	this->setVec3(name + string("diffuse"), light.diffuse);
+	this->setVec3(name + string("specular"), light.specular);
+}
+
+// idLight starts at 0, ends at 9 (per light type, total 30 lights possible)
+void Shader::setDirLight(const LowRenderer::DirLight& light, const unsigned int& idLight) const
+{
+	string name("dirLights[" + idLight + string("]."));
+	this->setVec3(name + string("direction"), light.direction);
+	this->setBaseLight(name, light.base);
+}
+
+// idLight starts at 0, ends at 9 (per light type, total 30 lights possible)
+void Shader::setPointLight(const LowRenderer::PointLight& light, const unsigned int& idLight) const
+{
+	string name("pointLights[" + idLight + string("]."));
+	this->setVec3(name + string("position"), light.position);
+
+	this->setBaseLight(name, light.base);
+
+	this->setFloat(name + string("constant"), light.constant);
+	this->setFloat(name + string("linear"), light.linear);
+	this->setFloat(name + string("quadratic"), light.quadratic);
+}
+
+// idLight starts at 0, ends at 9 (per light type, total 30 lights possible)
+void Shader::setSpotLight(const LowRenderer::SpotLight& light, const unsigned int& idLight) const
+{
+	string name("spotLights[" + idLight + string("]."));
+	this->setVec3(name + string("position"), light.position);
+	this->setVec3(name + string("direction"), light.direction);
+
+	this->setBaseLight(name, light.base);
+
+	this->setFloat(name + string("constant"), light.constant);
+	this->setFloat(name + string("linear"), light.linear);
+	this->setFloat(name + string("quadratic"), light.quadratic);
+
+	this->setFloat(name + string("cutOff"),light.cutOff);
+	this->setFloat(name + string("outerCutOff"), light.outerCutOff);
+}
+
 // returns 1 on error
 bool Shader::checkCompileErrors(unsigned int& shader, string type)
 {
