@@ -65,21 +65,30 @@ void Mesh::loadResource(fs::path filePath)
 			//	filePath.string().c_str(), string(beginLine + curLine).c_str())
 		}
 	}
+	file.close();
 	DEBUG_LOG("%s : model pre-loaded", filePath.string().c_str());
-	makeVertices();
 
-	tmpIndices.clear();
-	tmpVPos.clear();
-	tmpVNor.clear();
-	tmpVTex.clear();
+	makeVertices(); 
 
 	DEBUG_LOG("%s : model loaded", filePath.string().c_str());
+}
+
+bool fastCompare(string& s1, string& s2)
+{
+	unsigned int length = s1.length();
+	if (length != s2.length())
+		return 0;
+
+	for (unsigned int i = 0; i < length; ++i)
+		if (s1[i] != s2[i]) return 0;
+
+	return 1;
 }
 
 uint32_t Mesh::getIndice(string& line)
 {
 	for (uint32_t i = 0; i < tmpIndices.size(); ++i)
-		if (line.compare(tmpIndices[i])) return i;
+		if (fastCompare(line, tmpIndices[i])) return i;
 	//  else
 	{
 		tmpIndices.push_back(line);
@@ -139,7 +148,11 @@ void Mesh::makeVertices()
 			tmpVNor[getNorString(tmpIndices[i])],
 			tmpVTex[getTexString(tmpIndices[i])]
 		};
-
 		vertices.push_back(v);
 	}
+
+	tmpIndices.clear();
+	tmpVPos.clear();
+	tmpVNor.clear();
+	tmpVTex.clear();
 }

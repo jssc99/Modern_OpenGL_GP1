@@ -20,11 +20,11 @@ int main()
 
 	//Mesh* meshTest = rManager.createR<Mesh>("Tree.obj");
 	//Mesh* meshTest = rManager.createR<Mesh>("Viking.obj");
-	//Mesh* meshTest = rManager.createR<Mesh>("Cat.obj");
+	Mesh* meshTest = rManager.createR<Mesh>("Cat.obj");
 	//Mesh* meshTest = rManager.createR<Mesh>("WeirdCat.obj");
 	//Mesh* meshTest = rManager.createR<Mesh>("Cottage.obj");
 	//Mesh* meshTest = rManager.createR<Mesh>("Bench.obj");
-	Mesh* meshTest = rManager.createR<Mesh>("Horse.obj");
+	//Mesh* meshTest = rManager.createR<Mesh>("Horse.obj");
 
 	// Load Shaders
 	Shader* testShader = rManager.createR<Shader>("testShader");
@@ -37,7 +37,7 @@ int main()
 	//Texture* catTex = rManager.createR<Texture>("Cat_diffuse.jpg");
 	//Texture* catTexBump = rManager.createR<Texture>("Cat_bump.jpg");
 	Texture* cottTex = rManager.createR<Texture>("Cottage_Clean_Base_Color.png");
-	Texture* cottTexBump = rManager.createR<Texture>("Cottage_Clean_Roughness.png");
+	Texture* cottTexBump = rManager.createR<Texture>("Cottage_Clean_MetallicSmoothness.png");
 
 	// Make Model
 	Model cottage; cottage.makeModel(cottTex, meshTest);
@@ -127,7 +127,7 @@ int main()
 		mat4 VP = cam.getPerspective() * cam.getView();
 
 		lightPos.x = 1.f + sin((float)glfwGetTime()) * 2.f;
-		lightPos.z = sin((float)glfwGetTime() / 2.f) * 1.f;
+		lightPos.z = sin((float)glfwGetTime() / 2.f) * 2.f;
 
 		testLight->use();
 		glBindVertexArray(lightCubeVAO);
@@ -154,7 +154,7 @@ int main()
 			1.f, .09f, .032f, vec3(0.f), vec3(1.f), vec3(1.f)), 0);
 
 		// Create MVP matrix
-		mat4 model = Maths::mat::scale(vec3(1.f));
+		mat4 model = Maths::mat::scale(vec3(.2f));
 		//model *= Maths::mat::rotateZ(-90.f);
 		model *= Maths::mat::rotateY(-90.f);
 		testShader->setMat4("model", model);
