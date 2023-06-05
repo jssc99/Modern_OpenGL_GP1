@@ -16,7 +16,7 @@ namespace Resources {
 
 		void loadResource(fs::path filePath) override;
 
-		void use(int GL_textureSlot);
+		void use();
 		void stopUse();
 
 	private:

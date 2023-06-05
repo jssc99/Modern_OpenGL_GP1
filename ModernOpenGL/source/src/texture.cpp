@@ -6,9 +6,9 @@
 
 using namespace Resources;
 
-void Texture::use(int GL_textureSlot)
+void Texture::use()
 {
-	glActiveTexture(GL_textureSlot);
+	glActiveTexture(GL_TEXTURE0 + (ID - 1));
 	glBindTexture(GL_TEXTURE_2D, ID);
 }
 
@@ -27,6 +27,7 @@ void Texture::loadResource(fs::path filePath)
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 
+	stbi_set_flip_vertically_on_load(true);
 	unsigned char* data = stbi_load(filePath.string().c_str(), &width, &height, &nrChannels, 0);
 	if (data)
 	{

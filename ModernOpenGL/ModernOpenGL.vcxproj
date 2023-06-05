@@ -154,8 +154,10 @@
   <ItemGroup>
     <ClInclude Include="source\include\application.hpp" />
     <ClInclude Include="source\include\basicMath.hpp" />
+    <ClInclude Include="source\include\entity.hpp" />
     <ClInclude Include="source\include\light.hpp" />
     <ClInclude Include="source\include\mesh.hpp" />
+    <ClInclude Include="source\include\transform.hpp" />
     <ClInclude Include="source\include\types.hpp" />
     <ClInclude Include="source\include\buffer.hpp" />
     <ClInclude Include="source\include\camera.hpp" />

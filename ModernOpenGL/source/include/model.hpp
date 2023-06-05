@@ -7,6 +7,7 @@ using std::vector;
 #include "IResource.hpp"
 #include "texture.hpp"
 #include "mesh.hpp"
+#include "shader.hpp"
 
 namespace Resources {
 	class Model
@@ -18,18 +19,16 @@ namespace Resources {
 			// texture and mesh should be delete by ResourceManager
 		};
 
-		void makeModel(Texture* tex, LowRenderer::Mesh* mesh);
-		//void makeModel(vector<Texture*> texs, vector<LowRenderer::Mesh*> meshs);
+		void makeModel(Texture* tex, LowRenderer::Mesh* m);
+		void makeModel(vector<Texture*> texs, LowRenderer::Mesh* m);
 
-		void draw(int GL_Tex = 0);
+		int addTexture(Texture* tex);
+
+		void draw();
 
 	private:
-		Texture* texture = nullptr;
+		vector<Texture*> textures;
 		LowRenderer::Mesh* mesh = nullptr;
 		Buffer* buffer = nullptr;
-
-		//vector<Texture*> textures;
-		//vector<LowRenderer::Mesh*> meshes;
-		//vector<Buffer*> buffers;
 	};
 }

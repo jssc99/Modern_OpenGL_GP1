@@ -25,6 +25,10 @@ void Shader::loadResource(fs::path shaderName)
 
 	setVertexS(vertexPath);
 	setFragmentS(fragmentPath, true);
+
+	setInt("nbDirLight", 0);
+	setInt("nbPointLight", 0);
+	setInt("nbSpotLight", 0);
 }
 
 string loadCode(fs::path path)

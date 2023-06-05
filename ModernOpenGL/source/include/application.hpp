@@ -27,7 +27,7 @@ namespace Core
 		GLFWwindow* window;
 		float deltaTime = 0.f;
 
-		void processInput(LowRenderer::Camera* cam);
+		void processInput(LowRenderer::Camera& cam);
 	private:
 		float lastFrame = 0.f;
 	};

@@ -48,16 +48,14 @@ in vec2 texCoord;
 in vec3 fragPos;
 in vec3 normal;
 
-//uniform sampler2D mainTexture;
-
 uniform vec3 viewPos;
 uniform Material material;
 
-uniform unsigned int nbDirLight = 1;
-uniform unsigned int nbPointLight = 1;
-uniform unsigned int nbSpotLight = 1;
+#define MAXLIGHTS 5
 
-#define MAXLIGHTS 10
+uniform int nbDirLight;
+uniform int nbPointLight;
+uniform int nbSpotLight;
 
 uniform DirLight dirLights[MAXLIGHTS];
 uniform PointLight pointLights[MAXLIGHTS];
@@ -74,13 +72,13 @@ void main()
 
     vec3 result = vec3(0.f, 0.f, 0.f);
     
-    for (unsigned int i = 0; i < nbDirLight; ++i)
+    for (int i = 0; i < nbDirLight; ++i)
         result += getDirLight(dirLights[i], norm, viewDir);
 
-    for (unsigned int i = 0; i < nbPointLight; ++i)
+    for (int i = 0; i < nbPointLight; ++i)
         result += getPointLight(pointLights[i], norm, fragPos, viewDir);  
         
-    for (unsigned int i = 0; i < nbSpotLight; ++i)
+    for (int i = 0; i < nbSpotLight; ++i)
         result += getSpotLight(spotLights[i], norm, fragPos, viewDir);    
 
     fragColor = vec4(result, 1.f);

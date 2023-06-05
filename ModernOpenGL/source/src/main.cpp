@@ -6,10 +6,13 @@
 #include "../include/application.hpp"
 #include "../include/camera.hpp"
 #include "../include/light.hpp"
+#include "../include/entity.hpp"
 
 using namespace Core;
+using namespace Physics;
 using namespace LowRenderer;
 using namespace Resources;
+using namespace Maths::mat;
 
 int main()
 {
@@ -18,155 +21,117 @@ int main()
 	Camera cam(app->width, app->height);
 	ResourceManager rManager;
 
+	// Load Meshes
 	//Mesh* meshTest = rManager.createR<Mesh>("Tree.obj");
 	//Mesh* meshTest = rManager.createR<Mesh>("Viking.obj");
-	Mesh* meshTest = rManager.createR<Mesh>("Cat.obj");
 	//Mesh* meshTest = rManager.createR<Mesh>("WeirdCat.obj");
-	//Mesh* meshTest = rManager.createR<Mesh>("Cottage.obj");
+	Mesh* cottMesh = rManager.createR<Mesh>("Cottage.obj");
+	Mesh* catTest = rManager.createR<Mesh>("Cat.obj");
 	//Mesh* meshTest = rManager.createR<Mesh>("Bench.obj");
 	//Mesh* meshTest = rManager.createR<Mesh>("Horse.obj");
 
 	// Load Shaders
-	Shader* testShader = rManager.createR<Shader>("testShader");
-	Shader* testLight = rManager.createR<Shader>("testLight");
+	Shader* cottShader = rManager.createR<Shader>("testShader");
+	Shader* catShader = cottShader;
+	//Shader* testLight = rManager.createR<Shader>("testLight");
 
 	// Load Textures
 	//Texture* wallTex = rManager.createR<Texture>("wall.jpg");
 	//Texture* smileyTex = rManager.createR<Texture>("awesomeface.png");
 	//Texture* vikingTex = rManager.createR<Texture>("viking.png");
-	//Texture* catTex = rManager.createR<Texture>("Cat_diffuse.jpg");
-	//Texture* catTexBump = rManager.createR<Texture>("Cat_bump.jpg");
 	Texture* cottTex = rManager.createR<Texture>("Cottage_Clean_Base_Color.png");
 	Texture* cottTexBump = rManager.createR<Texture>("Cottage_Clean_MetallicSmoothness.png");
+	Texture* catTex = rManager.createR<Texture>("Cat_diffuse.jpg");
+	Texture* catTexBump = rManager.createR<Texture>("Cat_bump.jpg");
 
-	// Make Model
-	Model cottage; cottage.makeModel(cottTex, meshTest);
+	// Make Models
+	Model cottage; cottage.makeModel(cottTex, cottMesh);
+	Model cat; cat.makeModel(catTex, catTest);
 
-	float vertices[] = {
-		-.5f, -.5f, -.5f,
-		 .5f, -.5f, -.5f,
-		 .5f,  .5f, -.5f,
-		 .5f,  .5f, -.5f,
-		-.5f,  .5f, -.5f,
-		-.5f, -.5f, -.5f,
+	// Make Entities
+	Entity cottageE(cottage);
+	cottageE.transform.setLocalPosition(vec3(10.f, 0.f, 0.f));
+	cottageE.transform.setLocalScale(vec3(.5f));
+	cottageE.transform.setLocalRotation(vec3(.0f, -90.f, 0.f));
+	cottageE.updateSelfAndChild();
 
-		-.5f, -.5f,  .5f,
-		 .5f, -.5f,  .5f,
-		 .5f,  .5f,  .5f,
-		 .5f,  .5f,  .5f,
-		-.5f,  .5f,  .5f,
-		-.5f, -.5f,  .5f,
+	Entity catE(cat);
+	catE.transform.setLocalPosition(vec3(0.f, 0.f, 10.f));
+	catE.transform.setLocalScale(vec3(.1f));
+	catE.transform.setLocalRotation(vec3(.0f, -90.f, 0.f));
+	catE.updateSelfAndChild();
 
-		-.5f,  .5f,  .5f,
-		-.5f,  .5f, -.5f,
-		-.5f, -.5f, -.5f,
-		-.5f, -.5f, -.5f,
-		-.5f, -.5f,  .5f,
-		-.5f,  .5f,  .5f,
+	cottageE.addChild(catE);
 
-		 .5f,  .5f,  .5f,
-		 .5f,  .5f, -.5f,
-		 .5f, -.5f, -.5f,
-		 .5f, -.5f, -.5f,
-		 .5f, -.5f,  .5f,
-		 .5f,  .5f,  .5f,
+	cottShader->use();
+	cottShader->setInt("material.diffuse", 0);
+	cottShader->setInt("material.specular", 1);
+	cottShader->setFloat("material.shininess", 32.f);
 
-		-.5f, -.5f, -.5f,
-		 .5f, -.5f, -.5f,
-		 .5f, -.5f,  .5f,
-		 .5f, -.5f,  .5f,
-		-.5f, -.5f,  .5f,
-		-.5f, -.5f, -.5f,
+	catShader->use();
+	catShader->setInt("material.diffuse", 2);
+	catShader->setInt("material.specular", 3);
+	catShader->setFloat("material.shininess", 10.f);
 
-		-.5f,  .5f, -.5f,
-		 .5f,  .5f, -.5f,
-		 .5f,  .5f,  .5f,
-		 .5f,  .5f,  .5f,
-		-.5f,  .5f,  .5f,
-		-.5f,  .5f, -.5f,
-	};
-
-	unsigned int lightCubeVAO, lightCubeVBO;
-	glGenBuffers(1, &lightCubeVBO);
-	glGenVertexArrays(1, &lightCubeVAO);
-
-	glBindBuffer(GL_ARRAY_BUFFER, lightCubeVBO);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
-
-	glBindVertexArray(lightCubeVAO);
-
-	// position attribute
-	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
-	glEnableVertexAttribArray(0);
-
-	testShader->use();
-	testShader->setInt("material.diffuse", 0);
-	testShader->setInt("material.specular", 1);
-
-	vec3 lightPos(1.2f, 1.f, 2.f);
+	SpotLight spotLight = makeSpotLight(cam.position, cam.front,
+		cos(Maths::deg2Rad(12.5f)), cos(Maths::deg2Rad(15.f)),
+		1.f, .09f, .032f, vec3(0.f), vec3(1.f), vec3(1.f));
 
 	// Main loop
 	while (!glfwWindowShouldClose(app->window))
 	{
 		// Input
-		app->processInput(&cam);
+		app->processInput(cam);
 
 		// Rendering
 		glClearColor(0.f, .6f, .6f, 1.f);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 		// Bind textures
-		//wallTex->use(GL_TEXTURE0);
-		//smileyTex->use(GL_TEXTURE1);
-		//vikingTex->use(GL_TEXTURE0);
-		//catTex->use(GL_TEXTURE0);
-		//catTexBump->use(GL_TEXTURE1);
-		//cottTex->use(GL_TEXTURE0);
-		cottTexBump->use(GL_TEXTURE1);
-
-		mat4 VP = cam.getPerspective() * cam.getView();
-
-		lightPos.x = 1.f + sin((float)glfwGetTime()) * 2.f;
-		lightPos.z = sin((float)glfwGetTime() / 2.f) * 2.f;
-
-		testLight->use();
-		glBindVertexArray(lightCubeVAO);
-		mat4 modelLight = Maths::mat::translate(lightPos);
-		modelLight *= Maths::mat::scale(vec3(.2f));
-		testLight->setMat4("MVP", VP * modelLight);
-		glDrawArrays(GL_TRIANGLES, 0, 36);
+		//wallTex->use();
+		//smileyTex->use();
+		//vikingTex->use();
+		//catTex->use();
+		catTexBump->use();//try outside loop TODO
+		//cottTex->use();
+		cottTexBump->use();
 
 		// Activate Shaders
-		testShader->use();
-		//testShader->setVec3("lightColor", lightColor);
-		testShader->setVec3("lightPos", lightPos);
-		testShader->setVec3("viewPos", cam.position);
-		testShader->setFloat("material.shininess", 32.f);
-
-		testShader->setInt("nbDirLight", 0);
-		// point light
-		testShader->setPointLight(makePointLight(lightPos, 1.f, .09f, .032f,
-			vec3(.05f), vec3(.8f), vec3(1.f)), 0);
+		cottShader->use();
+		catShader->use();
+		cottShader->setVec3("viewPos", cam.position);
+		catShader->setVec3("viewPos", cam.position);
 
 		// spotLight
-		testShader->setSpotLight(makeSpotLight(cam.position, cam.front,
-			cos(Maths::deg2Rad(12.5f)), cos(Maths::deg2Rad(15.f)),
-			1.f, .09f, .032f, vec3(0.f), vec3(1.f), vec3(1.f)), 0);
+		cottShader->setInt("nbSpotLight", 1);
+		catShader->setInt("nbSpotLight", 1);
+		spotLight.position = cam.position;
+		spotLight.direction = cam.front;
+		cottShader->setSpotLight(spotLight, 0);
+		catShader->setSpotLight(spotLight, 0);
 
 		// Create MVP matrix
-		mat4 model = Maths::mat::scale(vec3(.2f));
-		//model *= Maths::mat::rotateZ(-90.f);
-		model *= Maths::mat::rotateY(-90.f);
-		testShader->setMat4("model", model);
-		testShader->setMat4("VP", VP);
+		mat4 VP = cam.getPerspective() * cam.getView();
+		cottShader->setMat4("VP", VP);
+		catShader->setMat4("VP", VP);
+
+		cottageE.transform.computeModelMatrix();
+		cottShader->setMat4("model", cottageE.transform.getModelMatrix());
+
+		catE.transform.computeModelMatrix();
+		catShader->setMat4("model", catE.transform.getModelMatrix());
+
+		cottageE.transform.setLocalRotation(vec3(0.f, cottageE.transform.getLocalRotation().y + 20.f * app->deltaTime, 0.f));
+		cottageE.updateSelfAndChild();
 
 		// Draw Obj
-		cottage.draw(GL_TEXTURE0);
+		cottageE.drawSelfAndChild();
 
 		// Check and call events && then swap the buffers
 		glfwPollEvents();
 		glfwSwapBuffers(app->window);
 	}
+
 	delete app;
 	return EXIT_SUCCESS;
 }

@@ -52,7 +52,7 @@ Application::~Application()
 	glfwTerminate();
 }
 
-void Application::processInput(LowRenderer::Camera *cam)
+void Application::processInput(LowRenderer::Camera& cam)
 {
 	float currentFrame = (float)glfwGetTime();
 	deltaTime = currentFrame - lastFrame;
@@ -62,15 +62,15 @@ void Application::processInput(LowRenderer::Camera *cam)
 		glfwSetWindowShouldClose(window, true);
 
 	// Camera updates
-	cam->processInput(window, deltaTime);
+	cam.processInput(window, deltaTime);
 
 	if (mouseIn.xOffset != 0.f || mouseIn.yOffset != 0.f) {
-		cam->processMouse(mouseIn.xOffset, mouseIn.yOffset);
+		cam.processMouse(mouseIn.xOffset, mouseIn.yOffset);
 		mouseIn.xOffset = 0.f; mouseIn.yOffset = 0.f;
 	}
 
 	if (mouseIn.scroll != 0.f) {
-		cam->ProcessScroll(mouseIn.scroll);
+		cam.ProcessScroll(mouseIn.scroll);
 		mouseIn.scroll = 0.f;
 	}
 }

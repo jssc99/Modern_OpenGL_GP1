@@ -75,11 +75,11 @@ void Mesh::loadResource(fs::path filePath)
 
 bool fastCompare(string& s1, string& s2)
 {
-	unsigned int length = s1.length();
+	size_t length = s1.length();
 	if (length != s2.length())
 		return 0;
 
-	for (unsigned int i = 0; i < length; ++i)
+	for (size_t i = 0; i < length; ++i)
 		if (s1[i] != s2[i]) return 0;
 
 	return 1;
