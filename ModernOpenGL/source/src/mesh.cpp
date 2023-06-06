@@ -87,7 +87,7 @@ bool fastCompare(string& s1, string& s2)
 
 uint32_t Mesh::getIndice(string& line)
 {
-	for (int i = tmpIndices.size() - 1; i >= 0; --i)
+	for (int i = (int)tmpIndices.size() - 1; i >= 0; --i)
 		if (fastCompare(line, tmpIndices[i])) return (uint32_t)i;
 	//  else
 	{
