@@ -146,8 +146,8 @@
     <ClCompile Include="source\src\texture.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="source\shaders\testLight.frag" />
-    <None Include="source\shaders\testLight.vert" />
+    <None Include="source\shaders\shadCat.frag" />
+    <None Include="source\shaders\shadCat.vert" />
     <None Include="source\shaders\testShader.vert" />
     <None Include="source\shaders\testShader.frag" />
   </ItemGroup>

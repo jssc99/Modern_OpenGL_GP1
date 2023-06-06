@@ -107,6 +107,10 @@ void Shader::use() {
 	glUseProgram(ID);
 }
 
+void Shader::stopUse() {
+	glUseProgram(0);
+}
+
 void Shader::setBool(const string& name, bool value) const {
 	glUniform1i(glGetUniformLocation(ID, name.c_str()), (int)value);
 }
@@ -203,7 +207,7 @@ void Shader::setSpotLight(const LowRenderer::SpotLight& light, const unsigned in
 	this->setFloat(name + string("linear"), light.linear);
 	this->setFloat(name + string("quadratic"), light.quadratic);
 
-	this->setFloat(name + string("cutOff"),light.cutOff);
+	this->setFloat(name + string("cutOff"), light.cutOff);
 	this->setFloat(name + string("outerCutOff"), light.outerCutOff);
 }
 

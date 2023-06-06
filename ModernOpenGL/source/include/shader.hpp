@@ -1,6 +1,6 @@
 #pragma once
 
-#include <glad/glad.h> // include glad to get all the required OpenGL headers
+#include <glad/glad.h>
 
 #include "debug.hpp"
 #include "IResource.hpp"
@@ -26,6 +26,7 @@ namespace Resources {
 		bool linkShaders();
 
 		void use();
+		void stopUse();
 
 		void setBool(const string& name, bool value) const;
 		void setInt(const string& name, int value) const;

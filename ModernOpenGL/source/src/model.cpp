@@ -2,7 +2,7 @@
 
 using namespace Resources;
 
-void Model::makeModel(Texture* tex, LowRenderer::Mesh* m)
+void Model::makeModel(Texture* tex, LowRenderer::Mesh* m, Shader* shad)
 {
 	if (!m)
 	{
@@ -10,6 +10,13 @@ void Model::makeModel(Texture* tex, LowRenderer::Mesh* m)
 		return;
 	}
 	mesh = m;
+
+	if (!shad)
+	{
+		DEBUG_LOG("model shader not loaded, invalid shader");
+		return;
+	}
+	shader = shad;
 
 	if (addTexture(tex)) return;
 
@@ -21,7 +28,7 @@ void Model::makeModel(Texture* tex, LowRenderer::Mesh* m)
 	}
 }
 
-void Model::makeModel(vector<Texture*> texs, LowRenderer::Mesh* m)
+void Model::makeModel(vector<Texture*> texs, LowRenderer::Mesh* m, Shader* shad)
 {
 	if (!mesh)
 	{
@@ -29,6 +36,13 @@ void Model::makeModel(vector<Texture*> texs, LowRenderer::Mesh* m)
 		return;
 	}
 	mesh = m;
+
+	if (!shad)
+	{
+		DEBUG_LOG("model shader not loaded, invalid shader");
+		return;
+	}
+	shader = shad;
 
 	for (Texture* tex : texs)
 		if (addTexture(tex)) return;
@@ -59,8 +73,12 @@ void Model::draw()
 	for (Texture* texture : textures)
 		texture->use();
 
+	shader->use();
+
 	glDrawElements(GL_TRIANGLES, (GLsizei)mesh->indices.size(), GL_UNSIGNED_INT, 0);
 	glBindVertexArray(0);
+
+	shader->stopUse();
 
 	for (Texture* texture : textures)
 		texture->stopUse();

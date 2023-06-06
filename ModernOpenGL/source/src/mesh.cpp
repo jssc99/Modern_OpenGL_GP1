@@ -36,7 +36,7 @@ void Mesh::loadResource(fs::path filePath)
 		{
 			string i1, i2, i3, i4;
 			file >> i1 >> i2 >> i3;
-			
+
 			uint32_t ind1 = getIndice(i1), ind2 = getIndice(i2), ind3 = getIndice(i3);
 
 			indices.push_back(ind1); indices.push_back(ind2); indices.push_back(ind3);
@@ -61,14 +61,14 @@ void Mesh::loadResource(fs::path filePath)
 		else
 		{
 			getline(file, curLine);
-			//DEBUG_LOG("line not used while loading %s : %s", 
+			//DEBUG_LOG("line not used while loading %s : %s",
 			//	filePath.string().c_str(), string(beginLine + curLine).c_str())
 		}
 	}
 	file.close();
 	DEBUG_LOG("%s : model pre-loaded", filePath.string().c_str());
 
-	makeVertices(); 
+	makeVertices();
 
 	DEBUG_LOG("%s : model loaded", filePath.string().c_str());
 }
@@ -87,8 +87,8 @@ bool fastCompare(string& s1, string& s2)
 
 uint32_t Mesh::getIndice(string& line)
 {
-	for (uint32_t i = 0; i < tmpIndices.size(); ++i)
-		if (fastCompare(line, tmpIndices[i])) return i;
+	for (int i = tmpIndices.size() - 1; i >= 0; --i)
+		if (fastCompare(line, tmpIndices[i])) return (uint32_t)i;
 	//  else
 	{
 		tmpIndices.push_back(line);

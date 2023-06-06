@@ -44,7 +44,7 @@ Application::Application(int width, int height)
 		exit(EXIT_FAILURE);
 	}
 
-	glEnable(GL_DEPTH_TEST); 
+	glEnable(GL_DEPTH_TEST);
 }
 
 Application::~Application()
@@ -76,7 +76,7 @@ void Application::processInput(LowRenderer::Camera& cam)
 }
 
 void framebufferSizeCallback(GLFWwindow* window, int width, int height)
-{ // GLFW: whenever the window size changed (by OS or user resize) this callback function executes
+{
 	glViewport(0, 0, width, height);
 }
 

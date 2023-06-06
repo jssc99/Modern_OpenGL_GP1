@@ -52,7 +52,7 @@ mat4 Camera::getView()
 	float tR = dot(position, right);
 	float tU = dot(position, newUp);
 	float tF = dot(position, forward);
-	
+
 	mat4 view = {
 		right.x,   right.y,   right.z,   -tR,
 		newUp.x,   newUp.y,   newUp.z,   -tU,
@@ -68,7 +68,7 @@ mat4 Camera::getPerspective()
 	mat4 mat = mat::identity4(0.f);
 
 	float range = far_ - near_;
-	float cotHalfFov = 1.f / tanf(deg2Rad(zoom)/ 2.f);
+	float cotHalfFov = 1.f / tanf(deg2Rad(zoom) / 2.f);
 
 	mat.e[0] = cotHalfFov / aspect;
 	mat.v[1].y = cotHalfFov;
@@ -76,7 +76,7 @@ mat4 Camera::getPerspective()
 
 	mat.v[2].w = -2.f * near_ * far_ / range;
 	mat.v[3].z = -1.f;
-	
+
 	return mat;
 }
 

@@ -92,10 +92,10 @@
     <None Include="source\shaders\testShader.vert">
       <Filter>Resources\Shader</Filter>
     </None>
-    <None Include="source\shaders\testLight.frag">
+    <None Include="source\shaders\shadCat.frag">
       <Filter>Resources\Shader</Filter>
     </None>
-    <None Include="source\shaders\testLight.vert">
+    <None Include="source\shaders\shadCat.vert">
       <Filter>Resources\Shader</Filter>
     </None>
   </ItemGroup>

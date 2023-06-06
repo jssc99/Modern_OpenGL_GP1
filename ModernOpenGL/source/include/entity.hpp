@@ -4,6 +4,7 @@
 #include "model.hpp"
 
 #include <list>
+#include <cstdarg>
 
 namespace Physics
 {
@@ -12,24 +13,24 @@ namespace Physics
 	class Entity
 	{
 	public:
-		//Scene graph
-		std::list<std::unique_ptr<Entity> > children;
+		std::list<Entity*> children;
 		Entity* parent = nullptr;
 
 		Transform transform;
 		Model* model = nullptr;
 
-		Entity(Model& model) : model(&model) {}
+		Entity(Model& model) : model(&model) {};
+		Entity() {};
 
-		template<typename... TArgs>
-		void addChild(TArgs&... args) {
-			children.emplace_back(std::make_unique<Entity>(args...));
+		void addChild(Entity& t)
+		{
+			children.emplace_back(&t);
 			children.back()->parent = this;
 		}
 
 		void updateSelfAndChild()
 		{
-			if (transform.isDirty()) {
+			if (transform.isDirty) {
 				forceUpdateSelfAndChild();
 				return;
 			}

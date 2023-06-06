@@ -2,11 +2,8 @@
 
 #include "basicmath.hpp"
 
-#include <glad/glad.h> // include glad to get all the required OpenGL headers
+#include <glad/glad.h>
 #include <GLFW/glfw3.h>
-
-#include <glm/glm.hpp>
-#include <glm/gtc/matrix_transform.hpp>
 
 namespace LowRenderer
 {

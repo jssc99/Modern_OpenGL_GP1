@@ -12,9 +12,8 @@ namespace Resources {
 	public:
 		ResourceManager() {};
 		~ResourceManager() {
-			for (auto it = resources.begin(); it != resources.end();) {
+			for (auto it = resources.begin(); it != resources.end();)
 				it = resources.erase(it);
-			}
 		};
 
 		template <class T> T* createR(string name);
