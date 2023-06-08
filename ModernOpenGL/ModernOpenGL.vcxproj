@@ -152,10 +152,10 @@
     <ClCompile Include="source\src\texture.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="source\shaders\shadCat.frag" />
-    <None Include="source\shaders\shadCat.vert" />
-    <None Include="source\shaders\testShader.vert" />
-    <None Include="source\shaders\testShader.frag" />
+    <None Include="assets\shaders\shadCat.frag" />
+    <None Include="assets\shaders\shadCat.vert" />
+    <None Include="assets\shaders\testShader.frag" />
+    <None Include="assets\shaders\testShader.vert" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="source\include\application.hpp" />
