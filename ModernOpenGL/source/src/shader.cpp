@@ -9,6 +9,7 @@ Shader::~Shader() {
 
 void Shader::loadResource(fs::path shaderName)
 {
+	DEBUG_LOG("loading: %s", shaderName.string().c_str());
 	fs::path vertexPath, fragmentPath;
 	if (shaderName.extension() == ".frag")
 	{
